@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.artamonov.lessons.ui.home.HomeFragment">
+    tools:context="com.artamonov.lessons.ui.programs.ProgramsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/workout_recycler"
+        android:id="@+id/programs_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
