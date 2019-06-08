@@ -1,5 +1,6 @@
 package com.artamonov.lessons.ui.home;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,15 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryVi
 
     List<WorkoutHistoryItem> items;
 
-    public WorkoutHistoryAdapter(List<WorkoutHistoryItem> items) {
+    public interface IDetailWorkoutListener{
+        void openDetailWorkoutFragment(int i);
+    }
+
+    private IDetailWorkoutListener listener;
+
+    public WorkoutHistoryAdapter(List<WorkoutHistoryItem> items, IDetailWorkoutListener listener) {
         this.items = items;
+        this.listener = listener;
     }
 
     @NonNull
@@ -32,6 +40,19 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryVi
     @Override
     public void onBindViewHolder(@NonNull WorkoutHistoryViewHolder holder, int position) {
         holder.bind(this.items.get(position));
+        Log.d("ADAPTER", "onBindViewHolder - " + position);
+        final int id = position;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ADAPTER", "Open Fragment #" + id);
+                if (listener == null) {
+                    throw new RuntimeException("Listener must be initialized");
+                }
+
+                listener.openDetailWorkoutFragment(id);
+            }
+        });
     }
 
     @Override

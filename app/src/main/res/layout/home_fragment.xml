@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.artamonov.lessons.ui.home.HomeFragment">
+    tools:context="com.artamonov.lessons.ui.home.HomeFragment"
+    android:background="@color/colorWhite">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/workout_recycler"

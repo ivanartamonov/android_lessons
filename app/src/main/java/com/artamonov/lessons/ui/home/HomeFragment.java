@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.artamonov.lessons.AddWorkoutActivity;
+import com.artamonov.lessons.MainActivity;
 import com.artamonov.lessons.R;
 import com.artamonov.lessons.managers.WorkoutHistoryManager;
 import com.artamonov.lessons.models.WorkoutHistoryItem;
@@ -39,7 +40,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        WorkoutHistoryAdapter mAdapter = new WorkoutHistoryAdapter(WorkoutHistoryManager.getList());
+        WorkoutHistoryAdapter.IDetailWorkoutListener listener = (MainActivity) getActivity();
+
+        WorkoutHistoryAdapter mAdapter = new WorkoutHistoryAdapter(WorkoutHistoryManager.getList(), listener);
         recyclerView.setAdapter(mAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),

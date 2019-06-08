@@ -7,6 +7,8 @@ import java.util.List;
 
 public class WorkoutHistoryManager {
 
+    public static final String ARG_WORKOUT_ID = "arg workout id";
+
     private static List<WorkoutHistoryItem> workoutHistoryItems = new ArrayList<>();
 
     public static List<WorkoutHistoryItem> getList() {

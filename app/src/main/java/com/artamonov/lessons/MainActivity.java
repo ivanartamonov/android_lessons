@@ -12,10 +12,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.artamonov.lessons.ui.home.WorkoutDetailFragment;
+import com.artamonov.lessons.ui.home.WorkoutHistoryAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements WorkoutHistoryAdapter.IDetailWorkoutListener {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -45,4 +47,17 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+
+    @Override
+    public void openDetailWorkoutFragment(int i) {
+        //Toast.makeText(this, "Detail #" + i, Toast.LENGTH_SHORT).show();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment, WorkoutDetailFragment.newInstance(i))
+                .addToBackStack(null)
+                .commit();
+
+
+    }
 }
