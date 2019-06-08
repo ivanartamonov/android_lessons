@@ -14,9 +14,11 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.artamonov.lessons.models.User;
+import com.artamonov.lessons.network.InitUserFromApi;
 import com.artamonov.lessons.network.NetworkService;
 import com.artamonov.lessons.ui.home.WorkoutDetailFragment;
 import com.artamonov.lessons.ui.home.WorkoutHistoryAdapter;
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
 import retrofit2.Call;
@@ -52,23 +54,7 @@ public class MainActivity extends AppCompatActivity implements WorkoutHistoryAda
         NetworkService.getInstance()
                 .getJSONApi()
                 .getUser()
-                .enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
-                        User user = response.body();
-
-                        if (user != null) {
-                            Log.d("RETR_API", user.getName());
-                            TextView tvUserName = findViewById(R.id.tv_user_name);
-                            tvUserName.setText(user.getName());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+                .enqueue(new InitUserFromApi(this));
     }
 
     @Override
