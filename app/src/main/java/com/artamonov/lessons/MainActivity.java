@@ -62,19 +62,10 @@ public class MainActivity extends AppCompatActivity implements WorkoutHistoryAda
                             TextView tvUserName = findViewById(R.id.tv_user_name);
                             tvUserName.setText(user.getName());
                         }
-
-                        /*
-                        textView.append(post.getId() + "\n");
-                        textView.append(post.getUserId() + "\n");
-                        textView.append(post.getTitle() + "\n");
-                        textView.append(post.getBody() + "\n");
-                        */
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
-                        //Toast.makeText(this, "Error occurred while getting request!", Toast.LENGTH_LONG).show();
-                        //textView.append("Error occurred while getting request!");
                         t.printStackTrace();
                     }
                 });
@@ -90,14 +81,10 @@ public class MainActivity extends AppCompatActivity implements WorkoutHistoryAda
 
     @Override
     public void openDetailWorkoutFragment(int i) {
-        //Toast.makeText(this, "Detail #" + i, Toast.LENGTH_SHORT).show();
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.nav_host_fragment, WorkoutDetailFragment.newInstance(i))
                 .addToBackStack(null)
                 .commit();
-
-
     }
 }
