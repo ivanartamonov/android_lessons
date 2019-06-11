@@ -1,9 +1,14 @@
 package com.artamonov.lessons.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
+@Entity
 public class User {
 
+    @PrimaryKey
     @SerializedName("id")
     private int id;
 

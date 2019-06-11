@@ -1,6 +1,5 @@
 package com.artamonov.lessons;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,20 +9,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
 
-import com.artamonov.lessons.models.User;
+import com.artamonov.lessons.core.db.AppDatabase;
 import com.artamonov.lessons.network.InitUserFromApi;
 import com.artamonov.lessons.network.NetworkService;
 import com.artamonov.lessons.ui.home.WorkoutDetailFragment;
 import com.artamonov.lessons.ui.home.WorkoutHistoryAdapter;
-import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements WorkoutHistoryAdapter.IDetailWorkoutListener {
 
