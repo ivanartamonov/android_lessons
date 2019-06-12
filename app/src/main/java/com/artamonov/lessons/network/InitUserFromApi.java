@@ -1,5 +1,6 @@
 package com.artamonov.lessons.network;
 
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,8 @@ import retrofit2.Response;
 
 public class InitUserFromApi implements Callback<User> {
 
+    private static final String TAG = "InitUserFromApi";
+
     private AppCompatActivity activity;
 
     public InitUserFromApi(AppCompatActivity activity) {
@@ -26,6 +29,12 @@ public class InitUserFromApi implements Callback<User> {
         User user = response.body();
 
         if (user != null) {
+            Log.d(TAG, user.getName());
+
+            //AppDatabase db = App.getInstance().getDatabase();
+            //db.userDao().insert(user);
+
+
             TextView tvUserName = this.activity.findViewById(R.id.tv_user_name);
             ImageView userAvatar = this.activity.findViewById(R.id.img_user_avatar);
 
