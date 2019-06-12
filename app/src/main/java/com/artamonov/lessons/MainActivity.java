@@ -9,12 +9,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.artamonov.lessons.core.db.AppDatabase;
-import com.artamonov.lessons.network.InitUserFromApi;
-import com.artamonov.lessons.network.NetworkService;
+import com.artamonov.lessons.models.User;
+import com.artamonov.lessons.services.InitUser;
 import com.artamonov.lessons.ui.home.WorkoutDetailFragment;
 import com.artamonov.lessons.ui.home.WorkoutHistoryAdapter;
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements WorkoutHistoryAdapter.IDetailWorkoutListener {
@@ -43,10 +45,21 @@ public class MainActivity extends AppCompatActivity implements WorkoutHistoryAda
     }
 
     private void setUser() {
-        NetworkService.getInstance()
-                .getJSONApi()
-                .getUser()
-                .enqueue(new InitUserFromApi(this));
+        InitUser userDefiner = new InitUser(this);
+        User user = userDefiner.getUser();
+
+        /*
+        if (user != null) {
+            TextView tvUserName = findViewById(R.id.tv_user_name);
+            ImageView userAvatar = findViewById(R.id.img_user_avatar);
+
+            tvUserName.setText(user.getName());
+
+            Glide.with(this)
+                    .load(user.getAvatarUrl())
+                    .into(userAvatar);
+        }
+         */
     }
 
     @Override
