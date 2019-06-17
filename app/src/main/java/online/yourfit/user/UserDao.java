@@ -1,5 +1,6 @@
 package online.yourfit.user;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,10 +15,10 @@ import java.util.List;
 public interface UserDao {
 
     @Query("SELECT * FROM user")
-    List<User> getAll();
+    LiveData<List<User>> getAll();
 
     @Query("SELECT * FROM user WHERE id = :id")
-    User getById(long id);
+    LiveData<User> getById(long id);
 
     @Insert
     void insert(User user);
@@ -27,5 +28,8 @@ public interface UserDao {
 
     @Delete
     void delete(User user);
+
+    @Query("DELETE FROM user")
+    void deleteAll();
 
 }

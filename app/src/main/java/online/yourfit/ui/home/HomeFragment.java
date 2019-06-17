@@ -2,12 +2,18 @@ package online.yourfit.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,20 +22,41 @@ import online.yourfit.AddWorkoutActivity;
 import online.yourfit.MainActivity;
 import online.yourfit.R;
 import online.yourfit.managers.WorkoutHistoryManager;
+import online.yourfit.models.User;
+import online.yourfit.services.InitUser;
+import online.yourfit.ui.SetUserInfo;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    public static final String LOG_TAG = "HomeFragment";
+    private static final String LOG_TAG = "HomeFragment";
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    private HomeViewModel homeViewModel;
 
-        View root = inflater.inflate(R.layout.home_fragment, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        final View root = inflater.inflate(R.layout.home_fragment, container, false);
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.workout_recycler);
+
+        this.homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        this.homeViewModel.getUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    SetUserInfo.execute(getActivity(), user);
+                    Log.d(LOG_TAG, "ViewModeOnChange: " + user.getName());
+                    Toast.makeText(getActivity(), user.getName(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d(LOG_TAG, "User is null");
+                    Toast.makeText(getActivity(), "User is null", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        InitUser userDefiner = new InitUser((MainActivity) getActivity());
+        User user = userDefiner.getUser();
 
         // 2. set layoutManger
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

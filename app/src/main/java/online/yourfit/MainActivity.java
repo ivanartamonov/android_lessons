@@ -10,8 +10,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
-import online.yourfit.models.User;
-import online.yourfit.services.InitUser;
 import online.yourfit.ui.home.WorkoutDetailFragment;
 import online.yourfit.ui.home.WorkoutHistoryAdapter;
 
@@ -38,26 +36,6 @@ public class MainActivity extends AppCompatActivity implements WorkoutHistoryAda
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        //this.setUser();
-    }
-
-    private void setUser() {
-        InitUser userDefiner = new InitUser(this);
-        User user = userDefiner.getUser();
-
-        /*
-        if (user != null) {
-            TextView tvUserName = findViewById(R.id.tv_user_name);
-            ImageView userAvatar = findViewById(R.id.img_user_avatar);
-
-            tvUserName.setText(user.getName());
-
-            Glide.with(this)
-                    .load(user.getAvatarUrl())
-                    .into(userAvatar);
-        }
-         */
     }
 
     @Override
