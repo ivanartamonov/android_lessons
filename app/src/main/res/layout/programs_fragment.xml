@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.artamonov.lessons.ui.programs.ProgramsFragment"
+    tools:context="online.yourfit.ui.programs.ProgramsFragment"
     android:background="@color/colorWhite">
 
     <androidx.recyclerview.widget.RecyclerView
