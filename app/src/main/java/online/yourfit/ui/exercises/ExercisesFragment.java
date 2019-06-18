@@ -2,20 +2,24 @@ package online.yourfit.ui.exercises;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import online.yourfit.MainActivity;
+import java.util.List;
+
 import online.yourfit.R;
-import online.yourfit.managers.ExercisesManager;
-import online.yourfit.managers.WorkoutHistoryManager;
-import online.yourfit.ui.home.WorkoutHistoryAdapter;
+import online.yourfit.models.Exercise;
+import online.yourfit.network.NetworkService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ExercisesFragment extends Fragment {
 
@@ -45,8 +49,29 @@ public class ExercisesFragment extends Fragment {
 
         //ExercisesAdapter.IDetailWorkoutListener listener = (MainActivity) getActivity();
 
-        ExercisesAdapter adapter = new ExercisesAdapter(ExercisesManager.getList());
+        final ExercisesAdapter adapter = new ExercisesAdapter();
         recyclerView.setAdapter(adapter);
+
+        Call<List<Exercise>> exercisesCall = NetworkService.getInstance()
+                .getJSONApi()
+                .getExercises();
+
+        exercisesCall.enqueue(new Callback<List<Exercise>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Exercise>> call, @NonNull Response<List<Exercise>> response) {
+                List<Exercise> list = response.body();
+                if (list != null) {
+                    adapter.setItems(list);
+                } else {
+                    Log.d(LOG_TAG, "Response exercises is empty");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Exercise>> call, @NonNull Throwable t) {
+                Log.d(LOG_TAG, "onFailure");
+            }
+        });
     }
 
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import online.yourfit.R;
@@ -18,10 +19,11 @@ import online.yourfit.models.Exercise;
 
 public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ExerciseViewHolder> {
 
-    List<Exercise> items;
+    private List<Exercise> items = new ArrayList<>();
 
-    public ExercisesAdapter(List<Exercise> items) {
-        this.items = items;
+    void setItems(List<Exercise> exercises) {
+        this.items = exercises;
+        notifyDataSetChanged();
     }
 
     @NonNull
