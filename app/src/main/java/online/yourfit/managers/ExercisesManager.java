@@ -10,8 +10,20 @@ public class ExercisesManager {
     private static List<Exercise> exercises = new ArrayList<>();
 
     public static List<Exercise> getList() {
-        exercises.add(new Exercise("Test 1", 1));
-        exercises.add(new Exercise("Test 2", 2));
+        if (exercises.size() == 0) {
+            exercises.add(new Exercise(
+                    "Жим штанги лежа на горизонтальной скамье",
+                    0,
+                    "https://yourfit.online/uploads/exercise_pics/img_45.png",
+                    "https://yourfit.online/uploads/exercise_pics/img2_45.png"
+            ));
+            exercises.add(new Exercise(
+                    "Жим от груди в тренажере",
+                    0,
+                    "https://yourfit.online/uploads/exercise_pics/img_46.png",
+                    "https://yourfit.online/uploads/exercise_pics/img2_46.png"
+            ));
+        }
 
         return exercises;
     }

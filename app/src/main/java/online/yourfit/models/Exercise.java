@@ -25,9 +25,11 @@ public class Exercise {
     @SerializedName("muscleGroupId")
     private int muscleGroupId;
 
-    public Exercise(String name, int type) {
+    public Exercise(String name, int type, String primaryImgUrl, String secondaryImgUrl) {
         this.name = name;
         this.type = type;
+        this.primaryImgUrl = primaryImgUrl;
+        this.secondaryImgUrl = secondaryImgUrl;
     }
 
     public int getId() {

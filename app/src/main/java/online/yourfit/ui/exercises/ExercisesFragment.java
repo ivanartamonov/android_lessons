@@ -47,10 +47,6 @@ public class ExercisesFragment extends Fragment {
 
         ExercisesAdapter adapter = new ExercisesAdapter(ExercisesManager.getList());
         recyclerView.setAdapter(adapter);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                layoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
 }
