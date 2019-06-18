@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import online.yourfit.MainActivity;
 import online.yourfit.R;
 import online.yourfit.models.Exercise;
 import online.yourfit.network.NetworkService;
@@ -47,9 +48,9 @@ public class ExercisesFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        //ExercisesAdapter.IDetailWorkoutListener listener = (MainActivity) getActivity();
+        ExercisesAdapter.IDetailExerciseListener listener = (MainActivity) getActivity();
 
-        final ExercisesAdapter adapter = new ExercisesAdapter();
+        final ExercisesAdapter adapter = new ExercisesAdapter(listener);
         recyclerView.setAdapter(adapter);
 
         Call<List<Exercise>> exercisesCall = NetworkService.getInstance()
@@ -73,5 +74,4 @@ public class ExercisesFragment extends Fragment {
             }
         });
     }
-
 }

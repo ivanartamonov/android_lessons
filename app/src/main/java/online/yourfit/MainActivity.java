@@ -10,12 +10,16 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
+import online.yourfit.ui.exercises.ExerciseDetailFragment;
+import online.yourfit.ui.exercises.ExercisesAdapter;
 import online.yourfit.ui.home.WorkoutDetailFragment;
 import online.yourfit.ui.home.WorkoutHistoryAdapter;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements WorkoutHistoryAdapter.IDetailWorkoutListener {
+public class MainActivity extends AppCompatActivity
+        implements WorkoutHistoryAdapter.IDetailWorkoutListener,
+                   ExercisesAdapter.IDetailExerciseListener {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -55,6 +59,15 @@ public class MainActivity extends AppCompatActivity implements WorkoutHistoryAda
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.nav_host_fragment, WorkoutDetailFragment.newInstance(i))
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void openDetailExerciseFragment(int i) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment, ExerciseDetailFragment.newInstance(i))
                 .addToBackStack(null)
                 .commit();
     }

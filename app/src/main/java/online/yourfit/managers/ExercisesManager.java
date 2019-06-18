@@ -7,6 +7,8 @@ import online.yourfit.models.Exercise;
 
 public class ExercisesManager {
 
+    public static final String ARG_EXERCISE_ID = "arg exercise id";
+
     private static List<Exercise> exercises = new ArrayList<>();
 
     public static List<Exercise> getList() {
@@ -26,5 +28,9 @@ public class ExercisesManager {
         }
 
         return exercises;
+    }
+
+    public static void setList(List<Exercise> list) {
+        exercises = list;
     }
 }
