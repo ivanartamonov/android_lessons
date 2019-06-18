@@ -38,6 +38,7 @@ public class InitUser {
     }
 
     private void fetchFromApi() {
+        /*
         Call<User> call = NetworkService.getInstance()
                 .getJSONApi()
                 .getUser();
@@ -64,6 +65,7 @@ public class InitUser {
                 Toast.makeText(activity, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+         */
     }
 
     private void saveUserInDatabase(User user) {

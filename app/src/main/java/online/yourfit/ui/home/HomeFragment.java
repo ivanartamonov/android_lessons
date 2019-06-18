@@ -26,6 +26,7 @@ import online.yourfit.models.User;
 import online.yourfit.services.InitUser;
 import online.yourfit.ui.SetUserInfo;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
@@ -34,31 +35,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private HomeViewModel homeViewModel;
 
+    // Views
+    private View root;
+    private RecyclerView recyclerView;
+    private FloatingActionButton fab;
+    private TextView tvUserName;
+    private ImageView userAvatar;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        final View root = inflater.inflate(R.layout.home_fragment, container, false);
-
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.workout_recycler);
-
+        root = inflater.inflate(R.layout.home_fragment, container, false);
         this.homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        this.homeViewModel.getUser().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                if (user != null) {
-                    SetUserInfo.execute(getActivity(), user);
-                    Log.d(LOG_TAG, "ViewModeOnChange: " + user.getName());
-                    Toast.makeText(getActivity(), user.getName(), Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.d(LOG_TAG, "User is null");
-                    Toast.makeText(getActivity(), "User is null", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        this.initViews();
 
-        InitUser userDefiner = new InitUser((MainActivity) getActivity());
-        User user = userDefiner.getUser();
+        this.showWorkoutHistoryList();
 
-        // 2. set layoutManger
+        return root;
+    }
+
+    private void initViews() {
+        tvUserName = root.findViewById(R.id.tv_user_name);
+        userAvatar = root.findViewById(R.id.img_user_avatar);
+        recyclerView = root.findViewById(R.id.workout_recycler);
+        fab = root.findViewById(R.id.fab_add_workout);
+
+        fab.setOnClickListener(this);
+    }
+
+    private void showWorkoutHistoryList() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
@@ -70,23 +73,42 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab_add_workout);
-        fab.setOnClickListener(this);
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        return root;
+        this.homeViewModel.getUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    Log.d(LOG_TAG, "ViewModeOnChange: " + user.getName());
+                    Toast.makeText(getActivity(), user.getName(), Toast.LENGTH_SHORT).show();
+
+                    // Почему tvUserName = null?
+                    //tvUserName.setText(user.getName()); // Ошибка, попытка вызвать метод setText() у null
+
+                    /*
+                    Glide.with(getContext())
+                            .load(user.getAvatarUrl())
+                            .into(userAvatar);
+
+                     */
+                } else {
+                    Log.d(LOG_TAG, "User is null");
+                    Toast.makeText(getActivity(), "User is null", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.fab_add_workout:
-                //Toast.makeText(this.getContext(), "Hello, world!", Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(this.getContext(), AddWorkoutActivity.class);
                 startActivityForResult(intent, 1);
-
                 break;
         }
     }
