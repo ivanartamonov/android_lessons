@@ -23,10 +23,7 @@ import online.yourfit.MainActivity;
 import online.yourfit.R;
 import online.yourfit.managers.WorkoutHistoryManager;
 import online.yourfit.models.User;
-import online.yourfit.services.InitUser;
-import online.yourfit.ui.SetUserInfo;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
@@ -43,7 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ImageView userAvatar;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.home_fragment, container, false);
+        root = inflater.inflate(R.layout.fragment_home, container, false);
         this.homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         this.initViews();
 
