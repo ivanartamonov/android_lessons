@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import online.yourfit.R;
 import online.yourfit.managers.ExercisesManager;
 import online.yourfit.models.Exercise;
@@ -58,11 +61,36 @@ public class ExerciseDetailFragment extends Fragment {
         imgPrimary = v.findViewById(R.id.img_exercise_detail_img1);
     }
 
+    private boolean isMainImg = true;
+
     private void fillViews(Exercise exercise){
         tvExerciseName.setText(exercise.getName());
 
-        Glide.with(containerView)
-                .load(exercise.getPrimaryImgUrl())
-                .into(imgPrimary);
+        final Exercise e = exercise;
+
+        Timer mTimer = new Timer();
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // As timer is not a Main/UI thread need to do all UI task on runOnUiThread
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isMainImg) {
+                            isMainImg = false;
+                            Glide.with(containerView)
+                                    .load(e.getPrimaryImgUrl())
+                                    .into(imgPrimary);
+                        } else {
+                            isMainImg = true;
+                            Glide.with(containerView)
+                                    .load(e.getSecondaryImgUrl())
+                                    .into(imgPrimary);
+                        }
+                    }
+                });
+            }
+        }, 0, 1000);
     }
+
 }
