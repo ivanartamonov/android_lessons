@@ -24,6 +24,7 @@ public class ExerciseDetailFragment extends Fragment {
 
     private View containerView;
     private TextView tvExerciseName;
+    private TextView tvExerciseType;
     private ImageView imgPrimary;
 
     public static ExerciseDetailFragment newInstance(int i) {
@@ -58,6 +59,7 @@ public class ExerciseDetailFragment extends Fragment {
 
     private void initViews(View v){
         tvExerciseName = v.findViewById(R.id.tv_exercise_detail_name);
+        tvExerciseType = v.findViewById(R.id.tv_exercise_detail_type);
         imgPrimary = v.findViewById(R.id.img_exercise_detail_img1);
     }
 
@@ -65,6 +67,12 @@ public class ExerciseDetailFragment extends Fragment {
 
     private void fillViews(Exercise exercise){
         tvExerciseName.setText(exercise.getName());
+
+        if (!exercise.getTypeName().isEmpty()) {
+            this.tvExerciseType.setText(exercise.getTypeName());
+        } else {
+            this.tvExerciseType.setVisibility(View.GONE);
+        }
 
         final Exercise e = exercise;
 

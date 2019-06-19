@@ -9,7 +9,7 @@
     >
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">
 
@@ -30,6 +30,17 @@
             android:maxLines="2"
             android:text="Title"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/tv_exerciseType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/img_exercise_primary"
+            android:layout_below="@id/tv_exerciseName"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Базовое"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     </RelativeLayout>
 

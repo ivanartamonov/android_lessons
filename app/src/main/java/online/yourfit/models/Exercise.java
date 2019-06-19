@@ -1,8 +1,13 @@
 package online.yourfit.models;
 
+import android.view.View;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Exercise {
+
+    public static final int TYPE_BASE = 1;
+    public static final int TYPE_ISOLATED = 2;
 
     @SerializedName("id")
     private int id;
@@ -50,6 +55,15 @@ public class Exercise {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getTypeName() {
+        if (this.getType() == TYPE_BASE) {
+            return "Базовое";
+        } else if (this.getType() == Exercise.TYPE_ISOLATED) {
+            return "Изолирующее";
+        }
+        return "";
     }
 
     public String getPrimaryImgUrl() {

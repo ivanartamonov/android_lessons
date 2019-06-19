@@ -70,18 +70,26 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exer
 
     static class ExerciseViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvExerciseName;
         ImageView img;
+        TextView tvExerciseName;
+        TextView tvExerciseType;
 
         ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
 
             this.tvExerciseName = itemView.findViewById(R.id.tv_exerciseName);
+            this.tvExerciseType = itemView.findViewById(R.id.tv_exerciseType);
             this.img = itemView.findViewById(R.id.img_exercise_primary);
         }
 
         void bind(Exercise exercise) {
             this.tvExerciseName.setText(exercise.getName());
+
+            if (!exercise.getTypeName().isEmpty()) {
+                this.tvExerciseType.setText(exercise.getTypeName());
+            } else {
+                this.tvExerciseType.setVisibility(View.GONE);
+            }
 
             Glide.with(itemView)
                     .load(exercise.getPrimaryImgUrl())
