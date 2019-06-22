@@ -22,4 +22,10 @@
         android:name="online.yourfit.ui.exercises.ExercisesFragment"
         android:label="@string/menu_exercises"
         tools:layout="@layout/fragment_exercises" />
+
+    <fragment
+        android:id="@+id/nav_measurements"
+        android:name="online.yourfit.ui.measurements.MeasurementsFragment"
+        android:label="@string/menu_measurements"
+        tools:layout="@layout/fragment_measurements" />
 </navigation>
