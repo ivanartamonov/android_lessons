@@ -14,13 +14,15 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import online.yourfit.MainActivity;
 import online.yourfit.R;
 import online.yourfit.models.Exercise;
 import online.yourfit.network.NetworkService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ExercisesFragment extends Fragment {
 
@@ -29,6 +31,11 @@ public class ExercisesFragment extends Fragment {
     // Views
     private View root;
     private RecyclerView recyclerView;
+
+    @NonNull
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    private ExercisesAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,28 +57,28 @@ public class ExercisesFragment extends Fragment {
 
         ExercisesAdapter.IDetailExerciseListener listener = (MainActivity) getActivity();
 
-        final ExercisesAdapter adapter = new ExercisesAdapter(listener);
+        adapter = new ExercisesAdapter(listener);
         recyclerView.setAdapter(adapter);
 
-        Call<List<Exercise>> exercisesCall = NetworkService.getInstance()
+        Observable<List<Exercise>> observable = NetworkService.getInstance()
                 .getJSONApi()
                 .getExercises();
 
-        exercisesCall.enqueue(new Callback<List<Exercise>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Exercise>> call, @NonNull Response<List<Exercise>> response) {
-                List<Exercise> list = response.body();
-                if (list != null) {
-                    adapter.setItems(list);
-                } else {
-                    Log.d(LOG_TAG, "Response exercises is empty");
-                }
-            }
+        compositeDisposable.add(observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Exercise>>() {
+                    @Override
+                    public void accept(List<Exercise> exercises) {
+                        adapter.setItems(exercises);
+                    }
+                })
+        );
+    }
 
-            @Override
-            public void onFailure(@NonNull Call<List<Exercise>> call, @NonNull Throwable t) {
-                Log.d(LOG_TAG, "onFailure");
-            }
-        });
+    @Override
+    public void onDestroyView() {
+        compositeDisposable.clear();
+        Log.d(LOG_TAG, "compositeDisposable.clear()");
+        super.onDestroyView();
     }
 }

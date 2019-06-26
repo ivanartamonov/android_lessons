@@ -2,6 +2,7 @@ package online.yourfit.network;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import online.yourfit.models.Exercise;
 import online.yourfit.models.User;
 
@@ -14,5 +15,5 @@ public interface JSONPlaceHolderApi {
     Call<User> getUser();
 
     @GET("/api/exercise")
-    Call<List<Exercise>> getExercises();
+    Observable<List<Exercise>> getExercises();
 }
