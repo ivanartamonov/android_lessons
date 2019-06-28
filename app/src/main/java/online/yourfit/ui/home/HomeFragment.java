@@ -18,9 +18,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import online.yourfit.AddWorkoutActivity;
 import online.yourfit.activities.MainActivity;
 import online.yourfit.R;
+import online.yourfit.activities.StartWorkoutActivity;
 import online.yourfit.managers.WorkoutHistoryManager;
 import online.yourfit.models.User;
 
@@ -104,8 +104,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_add_workout:
-                Intent intent = new Intent(this.getContext(), AddWorkoutActivity.class);
+                Intent intent = new Intent(this.getContext(), StartWorkoutActivity.class);
                 startActivityForResult(intent, 1);
+
+                /*
+                Activity activity = getActivity();
+                if (activity != null) {
+                    Intent intent = new Intent(this.getContext(), StartWorkout.class);
+                    intent.setAction("StartWorkout Action");
+                    activity.startService(intent);
+                } else {
+                    Log.d(LOG_TAG, "Activity is null");
+                }
+                */
+
                 break;
         }
     }
