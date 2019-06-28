@@ -20,7 +20,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".AddWorkoutActivity" />
+        <activity android:name=".activities.AddWorkoutActivity" />
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"

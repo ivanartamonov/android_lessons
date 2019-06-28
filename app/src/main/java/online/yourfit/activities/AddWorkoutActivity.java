@@ -1,4 +1,4 @@
-package online.yourfit;
+package online.yourfit.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
