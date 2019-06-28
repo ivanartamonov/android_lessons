@@ -1,4 +1,4 @@
-package online.yourfit;
+package online.yourfit.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,10 +10,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
+import online.yourfit.R;
 import online.yourfit.ui.exercises.ExerciseDetailFragment;
 import online.yourfit.ui.exercises.ExercisesAdapter;
 import online.yourfit.ui.home.WorkoutDetailFragment;
 import online.yourfit.ui.home.WorkoutHistoryAdapter;
+import online.yourfit.viewmodel.IView;
 
 import com.google.android.material.navigation.NavigationView;
 

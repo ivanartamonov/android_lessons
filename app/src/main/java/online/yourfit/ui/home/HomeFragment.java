@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import online.yourfit.AddWorkoutActivity;
-import online.yourfit.MainActivity;
+import online.yourfit.activities.MainActivity;
 import online.yourfit.R;
 import online.yourfit.managers.WorkoutHistoryManager;
 import online.yourfit.models.User;
