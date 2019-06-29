@@ -9,7 +9,26 @@
         android:id="@+id/nav_home"
         android:name="online.yourfit.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_measurements"
+            app:destination="@id/nav_measurements" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_programs"
+            app:destination="@id/nav_programs" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_exercises"
+            app:destination="@id/nav_exercises" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_workout_history_detail"
+            app:destination="@id/nav_workout_history_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_workout_history_detail"
+        android:name="online.yourfit.ui.home.WorkoutDetailFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_workout_detail" />
 
     <fragment
         android:id="@+id/nav_programs"
@@ -21,7 +40,21 @@
         android:id="@+id/nav_exercises"
         android:name="online.yourfit.ui.exercises.ExercisesFragment"
         android:label="@string/menu_exercises"
-        tools:layout="@layout/fragment_exercises" />
+        tools:layout="@layout/fragment_exercises" >
+        <action
+            android:id="@+id/action_nav_exercises_to_nav_exercise_detail"
+            app:destination="@id/nav_exercise_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_exercise_detail"
+        android:name="online.yourfit.ui.exercises.ExerciseDetailFragment"
+        android:label="@string/menu_exercises"
+        tools:layout="@layout/fragment_exercise_detail" >
+        <argument
+            android:name="exerciseId"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_measurements"

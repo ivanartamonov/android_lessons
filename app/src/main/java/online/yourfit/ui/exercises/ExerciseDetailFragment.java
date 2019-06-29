@@ -1,5 +1,6 @@
 package online.yourfit.ui.exercises;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,14 +28,6 @@ public class ExerciseDetailFragment extends Fragment {
     private TextView tvExerciseType;
     private ImageView imgPrimary;
 
-    public static ExerciseDetailFragment newInstance(int i) {
-        Bundle args = new Bundle();
-        args.putInt(ExercisesManager.ARG_EXERCISE_ID, i);
-        ExerciseDetailFragment fragment = new ExerciseDetailFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,12 +41,17 @@ public class ExerciseDetailFragment extends Fragment {
         containerView = view;
         super.onViewCreated(view, savedInstanceState);
 
-        int i = getArguments().getInt(ExercisesManager.ARG_EXERCISE_ID, -1);
-        if (i < 0) {
-            throw new RuntimeException("wrong card id");
+        Bundle bundle = getArguments();
+        if (bundle == null) {
+            throw new RuntimeException("Invalid exercise ID");
         }
 
-        Exercise item = ExercisesManager.getList().get(i);
+        int id = bundle.getInt(ExercisesManager.ARG_EXERCISE_ID, -1);
+        if (id < 0) {
+            throw new RuntimeException("Invalid exercise ID");
+        }
+
+        Exercise item = ExercisesManager.getList().get(id);
         fillViews(item);
     }
 
@@ -80,23 +78,27 @@ public class ExerciseDetailFragment extends Fragment {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                // As timer is not a Main/UI thread need to do all UI task on runOnUiThread
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isMainImg) {
-                            isMainImg = false;
-                            Glide.with(containerView)
-                                    .load(e.getPrimaryImgUrl())
-                                    .into(imgPrimary);
-                        } else {
-                            isMainImg = true;
-                            Glide.with(containerView)
-                                    .load(e.getSecondaryImgUrl())
-                                    .into(imgPrimary);
+                Activity activity = getActivity();
+
+                if (activity != null) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (isMainImg) {
+                                isMainImg = false;
+                                Glide.with(containerView)
+                                        .load(e.getPrimaryImgUrl())
+                                        .into(imgPrimary);
+                            } else {
+                                isMainImg = true;
+                                Glide.with(containerView)
+                                        .load(e.getSecondaryImgUrl())
+                                        .into(imgPrimary);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
             }
         }, 0, 1000);
     }

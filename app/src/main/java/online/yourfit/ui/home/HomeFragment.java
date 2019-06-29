@@ -9,28 +9,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import online.yourfit.ui.MainActivity;
 import online.yourfit.R;
 import online.yourfit.ui.workout.StartWorkoutActivity;
 import online.yourfit.data.workout_history.WorkoutHistoryManager;
-import online.yourfit.ui.FragmentOpener;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
-
-    private static final String LOG_TAG = "HomeFragment";
+public class HomeFragment extends Fragment implements View.OnClickListener, WorkoutHistoryAdapter.WorkoutHistoryAdapterListener {
 
     private HomeViewModel homeViewModel;
 
     // Views
     private View root;
     private RecyclerView recyclerView;
-    private FloatingActionButton fab;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -44,8 +41,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void initViews() {
         recyclerView = root.findViewById(R.id.workout_recycler);
-        fab = root.findViewById(R.id.fab_add_workout);
-
+        FloatingActionButton fab = root.findViewById(R.id.fab_add_workout);
         fab.setOnClickListener(this);
     }
 
@@ -53,9 +49,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        FragmentOpener listener = (MainActivity) getActivity();
-
-        WorkoutHistoryAdapter mAdapter = new WorkoutHistoryAdapter(WorkoutHistoryManager.getList(), listener);
+        WorkoutHistoryAdapter mAdapter = new WorkoutHistoryAdapter(WorkoutHistoryManager.getList(), this);
         recyclerView.setAdapter(mAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -74,19 +68,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.fab_add_workout:
                 Intent intent = new Intent(this.getContext(), StartWorkoutActivity.class);
                 startActivityForResult(intent, 1);
-
-                /*
-                Activity activity = getActivity();
-                if (activity != null) {
-                    Intent intent = new Intent(this.getContext(), StartWorkout.class);
-                    intent.setAction("StartWorkout Action");
-                    activity.startService(intent);
-                } else {
-                    Log.d(LOG_TAG, "Activity is null");
-                }
-                */
-
                 break;
         }
+    }
+
+    @Override
+    public void navigateToWorkoutHistoryDetail(int id) {
+        NavController controller = NavHostFragment.findNavController(this);
+
+        Bundle args = new Bundle();
+        args.putInt(WorkoutHistoryManager.ARG_WORKOUT_ID, id);
+
+        controller.navigate(R.id.nav_workout_history_detail, args);
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ExercisesManager {
 
-    public static final String ARG_EXERCISE_ID = "arg exercise id";
+    public static final String ARG_EXERCISE_ID = "exerciseId";
 
     private static List<Exercise> exercises = new ArrayList<>();
 

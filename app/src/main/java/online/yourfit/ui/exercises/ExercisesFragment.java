@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,13 +21,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import online.yourfit.ui.MainActivity;
+import online.yourfit.data.exercises.ExercisesManager;
 import online.yourfit.R;
 import online.yourfit.data.exercises.Exercise;
 import online.yourfit.core.NetworkService;
-import online.yourfit.ui.FragmentOpener;
 
-public class ExercisesFragment extends Fragment {
+public class ExercisesFragment extends Fragment implements ExercisesAdapter.ExercisesAdapterListener {
 
     private static final String LOG_TAG = "ExercisesFragment";
 
@@ -43,7 +44,7 @@ public class ExercisesFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_exercises, container, false);
 
         this.initViews();
-        this.showWorkoutHistoryList();
+        this.showExercisesList();
 
         return root;
     }
@@ -52,13 +53,11 @@ public class ExercisesFragment extends Fragment {
         recyclerView = root.findViewById(R.id.exercises_recycler);
     }
 
-    private void showWorkoutHistoryList() {
+    private void showExercisesList() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        FragmentOpener listener = (MainActivity) getActivity();
-
-        adapter = new ExercisesAdapter(listener);
+        adapter = new ExercisesAdapter(this);
         recyclerView.setAdapter(adapter);
 
         Observable<List<Exercise>> observable = NetworkService.getInstance()
@@ -81,5 +80,15 @@ public class ExercisesFragment extends Fragment {
         compositeDisposable.clear();
         Log.d(LOG_TAG, "compositeDisposable.clear()");
         super.onDestroyView();
+    }
+
+    @Override
+    public void navigateToExerciseDetails(int id) {
+        NavController controller = NavHostFragment.findNavController(this);
+
+        Bundle args = new Bundle();
+        args.putInt(ExercisesManager.ARG_EXERCISE_ID, id);
+
+        controller.navigate(R.id.nav_exercise_detail, args);
     }
 }
