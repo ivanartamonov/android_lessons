@@ -36,8 +36,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private View root;
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
-    private TextView tvUserName;
-    private ImageView userAvatar;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -50,8 +48,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initViews() {
-        tvUserName = root.findViewById(R.id.tv_user_name);
-        userAvatar = root.findViewById(R.id.img_user_avatar);
         recyclerView = root.findViewById(R.id.workout_recycler);
         fab = root.findViewById(R.id.fab_add_workout);
 
@@ -75,29 +71,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-
-        this.homeViewModel.getUser().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                if (user != null) {
-                    Log.d(LOG_TAG, "ViewModeOnChange: " + user.getName());
-                    Toast.makeText(getActivity(), user.getName(), Toast.LENGTH_SHORT).show();
-
-                    // Почему tvUserName = null?
-                    //tvUserName.setText(user.getName()); // Ошибка, попытка вызвать метод setText() у null
-
-                    /*
-                    Glide.with(getContext())
-                            .load(user.getAvatarUrl())
-                            .into(userAvatar);
-
-                     */
-                } else {
-                    Log.d(LOG_TAG, "User is null");
-                    Toast.makeText(getActivity(), "User is null", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override
