@@ -1,19 +1,12 @@
 package online.yourfit.services;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import online.yourfit.models.User;
-import online.yourfit.network.NetworkService;
-import online.yourfit.ui.SetUserInfo;
+import online.yourfit.data.user.User;
 
-import online.yourfit.user.UserRepository;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import online.yourfit.data.user.UserRepository;
 
 public class InitUser {
 

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import online.yourfit.R;
-import online.yourfit.models.Program;
+import online.yourfit.data.programs.Program;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
-package online.yourfit.managers;
+package online.yourfit.data.workout_history;
 
-import online.yourfit.models.WorkoutHistoryItem;
+import online.yourfit.data.workout_history.WorkoutHistoryItem;
 
 import java.util.ArrayList;
 import java.util.List;

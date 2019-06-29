@@ -21,8 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import online.yourfit.activities.MainActivity;
 import online.yourfit.R;
 import online.yourfit.activities.StartWorkoutActivity;
-import online.yourfit.managers.WorkoutHistoryManager;
-import online.yourfit.models.User;
+import online.yourfit.data.workout_history.WorkoutHistoryManager;
+import online.yourfit.data.user.User;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

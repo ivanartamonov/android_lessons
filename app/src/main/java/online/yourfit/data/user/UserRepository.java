@@ -1,4 +1,4 @@
-package online.yourfit.user;
+package online.yourfit.data.user;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import online.yourfit.core.db.AppDatabase;
-import online.yourfit.models.User;
+import online.yourfit.data.user.local.UserDao;
 
 public class UserRepository {
 

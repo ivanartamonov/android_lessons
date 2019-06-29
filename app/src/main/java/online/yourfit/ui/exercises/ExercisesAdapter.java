@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import online.yourfit.R;
-import online.yourfit.managers.ExercisesManager;
-import online.yourfit.models.Exercise;
+import online.yourfit.data.exercises.ExercisesManager;
+import online.yourfit.data.exercises.Exercise;
 
 public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ExerciseViewHolder> {
 

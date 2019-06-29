@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import online.yourfit.R;
-import online.yourfit.models.WorkoutHistoryItem;
+import online.yourfit.data.workout_history.WorkoutHistoryItem;
 
 public class WorkoutHistoryViewHolder extends RecyclerView.ViewHolder {
 

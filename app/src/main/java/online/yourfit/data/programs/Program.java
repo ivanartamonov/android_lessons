@@ -1,4 +1,4 @@
-package online.yourfit.models;
+package online.yourfit.data.programs;
 
 public class Program {
 

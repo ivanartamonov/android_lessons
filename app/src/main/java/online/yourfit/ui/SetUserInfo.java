@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import online.yourfit.R;
-import online.yourfit.models.User;
+import online.yourfit.data.user.User;
 
 public class SetUserInfo {
     public static void execute(Activity activity, User user) {

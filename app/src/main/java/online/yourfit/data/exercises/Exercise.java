@@ -1,6 +1,4 @@
-package online.yourfit.models;
-
-import android.view.View;
+package online.yourfit.data.exercises;
 
 import com.google.gson.annotations.SerializedName;
 

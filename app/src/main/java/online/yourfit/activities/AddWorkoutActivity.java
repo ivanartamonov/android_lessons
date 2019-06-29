@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import online.yourfit.R;
-import online.yourfit.managers.WorkoutHistoryManager;
-import online.yourfit.models.WorkoutHistoryItem;
+import online.yourfit.data.workout_history.WorkoutHistoryManager;
+import online.yourfit.data.workout_history.WorkoutHistoryItem;
 
 public class AddWorkoutActivity extends AppCompatActivity implements View.OnClickListener {
 

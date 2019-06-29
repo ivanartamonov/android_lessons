@@ -1,4 +1,4 @@
-package online.yourfit.user;
+package online.yourfit.data.user.local;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import online.yourfit.models.User;
+import online.yourfit.data.user.User;
 
 import java.util.List;
 

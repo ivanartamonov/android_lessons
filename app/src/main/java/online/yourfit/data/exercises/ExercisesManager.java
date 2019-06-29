@@ -1,9 +1,9 @@
-package online.yourfit.managers;
+package online.yourfit.data.exercises;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import online.yourfit.models.Exercise;
+import online.yourfit.data.exercises.Exercise;
 
 public class ExercisesManager {
 

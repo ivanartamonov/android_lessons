@@ -6,8 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import online.yourfit.user.UserDao;
-import online.yourfit.models.User;
+import online.yourfit.data.user.local.UserDao;
+import online.yourfit.data.user.User;
 
 @Database(entities = {User.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {

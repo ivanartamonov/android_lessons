@@ -21,7 +21,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import online.yourfit.activities.MainActivity;
 import online.yourfit.R;
-import online.yourfit.models.Exercise;
+import online.yourfit.data.exercises.Exercise;
 import online.yourfit.network.NetworkService;
 
 public class ExercisesFragment extends Fragment {

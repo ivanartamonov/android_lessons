@@ -17,8 +17,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import online.yourfit.R;
-import online.yourfit.managers.ExercisesManager;
-import online.yourfit.models.Exercise;
+import online.yourfit.data.exercises.ExercisesManager;
+import online.yourfit.data.exercises.Exercise;
 
 public class ExerciseDetailFragment extends Fragment {
 

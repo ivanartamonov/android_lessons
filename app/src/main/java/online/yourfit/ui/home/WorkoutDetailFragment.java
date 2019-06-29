@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import online.yourfit.R;
-import online.yourfit.managers.WorkoutHistoryManager;
-import online.yourfit.models.WorkoutHistoryItem;
+import online.yourfit.data.workout_history.WorkoutHistoryManager;
+import online.yourfit.data.workout_history.WorkoutHistoryItem;
 
 public class WorkoutDetailFragment extends Fragment {
 

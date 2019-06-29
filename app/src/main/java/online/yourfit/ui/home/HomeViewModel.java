@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import online.yourfit.models.User;
-import online.yourfit.user.UserRepository;
+import online.yourfit.data.user.User;
+import online.yourfit.data.user.UserRepository;
 
 public class HomeViewModel extends AndroidViewModel {
 

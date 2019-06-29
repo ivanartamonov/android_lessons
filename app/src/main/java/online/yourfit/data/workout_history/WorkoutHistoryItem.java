@@ -1,4 +1,4 @@
-package online.yourfit.models;
+package online.yourfit.data.workout_history;
 
 public class WorkoutHistoryItem {
 
