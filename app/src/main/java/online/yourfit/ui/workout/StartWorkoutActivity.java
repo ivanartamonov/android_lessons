@@ -1,4 +1,4 @@
-package online.yourfit.activities;
+package online.yourfit.ui.workout;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

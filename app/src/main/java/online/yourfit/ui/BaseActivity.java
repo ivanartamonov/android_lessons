@@ -1,11 +1,8 @@
-package online.yourfit.activities;
+package online.yourfit.ui;
 
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import online.yourfit.viewmodel.BaseViewModel;
-import online.yourfit.viewmodel.IView;
 
 public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatActivity implements IView {
 

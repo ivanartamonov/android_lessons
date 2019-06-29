@@ -2,27 +2,21 @@ package online.yourfit.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import online.yourfit.activities.MainActivity;
+import online.yourfit.ui.MainActivity;
 import online.yourfit.R;
-import online.yourfit.activities.StartWorkoutActivity;
+import online.yourfit.ui.workout.StartWorkoutActivity;
 import online.yourfit.data.workout_history.WorkoutHistoryManager;
-import online.yourfit.data.user.User;
 import online.yourfit.ui.FragmentOpener;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

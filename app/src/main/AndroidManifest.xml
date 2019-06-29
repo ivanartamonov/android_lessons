@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="online.yourfit">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,17 +13,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activities.StartWorkoutActivity"></activity>
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name=".ui.workout.StartWorkoutActivity" />
 
         <service
             android:name=".services.StartWorkout"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activities.AddWorkoutActivity" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

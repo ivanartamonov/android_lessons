@@ -1,4 +1,4 @@
-package online.yourfit.activities;
+package online.yourfit.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,8 +16,6 @@ import android.widget.TextView;
 
 import online.yourfit.R;
 import online.yourfit.data.user.User;
-import online.yourfit.ui.FragmentOpener;
-import online.yourfit.viewmodel.MainViewModel;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;

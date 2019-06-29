@@ -1,4 +1,4 @@
-package online.yourfit.viewmodel;
+package online.yourfit.ui;
 
 import android.app.Application;
 

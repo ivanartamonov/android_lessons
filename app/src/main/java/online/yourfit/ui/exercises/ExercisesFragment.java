@@ -19,7 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import online.yourfit.activities.MainActivity;
+import online.yourfit.ui.MainActivity;
 import online.yourfit.R;
 import online.yourfit.data.exercises.Exercise;
 import online.yourfit.core.NetworkService;

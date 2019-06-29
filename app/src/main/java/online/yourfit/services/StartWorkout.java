@@ -12,7 +12,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import online.yourfit.R;
-import online.yourfit.activities.StartWorkoutActivity;
+import online.yourfit.ui.workout.StartWorkoutActivity;
 
 public class StartWorkout extends Service {
 
