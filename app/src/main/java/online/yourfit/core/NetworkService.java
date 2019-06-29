@@ -1,5 +1,7 @@
-package online.yourfit.network;
+package online.yourfit.core;
 
+import online.yourfit.data.exercises.remote.ExercisesApi;
+import online.yourfit.data.user.remote.UserApi;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,8 +28,12 @@ public class NetworkService {
         return instance;
     }
 
-    public JSONPlaceHolderApi getJSONApi() {
-        return retrofit.create(JSONPlaceHolderApi.class);
+    public UserApi getUserApi() {
+        return retrofit.create(UserApi.class);
+    }
+
+    public ExercisesApi getExercisesApi() {
+        return retrofit.create(ExercisesApi.class);
     }
 
 }

@@ -3,8 +3,6 @@ package online.yourfit.data.exercises;
 import java.util.ArrayList;
 import java.util.List;
 
-import online.yourfit.data.exercises.Exercise;
-
 public class ExercisesManager {
 
     public static final String ARG_EXERCISE_ID = "arg exercise id";

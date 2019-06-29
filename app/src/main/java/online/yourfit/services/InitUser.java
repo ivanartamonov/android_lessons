@@ -33,7 +33,7 @@ public class InitUser {
     private void fetchFromApi() {
         /*
         Call<User> call = NetworkService.getInstance()
-                .getJSONApi()
+                .getUserApi()
                 .getUser();
 
         Log.d(TAG, call.request().url() + "");

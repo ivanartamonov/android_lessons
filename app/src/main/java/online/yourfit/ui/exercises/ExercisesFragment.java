@@ -22,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 import online.yourfit.activities.MainActivity;
 import online.yourfit.R;
 import online.yourfit.data.exercises.Exercise;
-import online.yourfit.network.NetworkService;
+import online.yourfit.core.NetworkService;
 
 public class ExercisesFragment extends Fragment {
 
@@ -61,7 +61,7 @@ public class ExercisesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         Observable<List<Exercise>> observable = NetworkService.getInstance()
-                .getJSONApi()
+                .getExercisesApi()
                 .getExercises();
 
         compositeDisposable.add(observable.subscribeOn(Schedulers.io())
