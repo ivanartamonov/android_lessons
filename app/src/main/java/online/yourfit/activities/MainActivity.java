@@ -79,13 +79,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onChanged(User user) {
                 if (user != null) {
-                    setUserInfo(user);
+                    displayUserInfo(user);
                 }
             }
         });
     }
 
-    private void setUserInfo(User user) {
+    private void displayUserInfo(User user) {
         tvUserName.setText(user.getName());
         Glide.with(this)
                 .load(user.getAvatarUrl())
