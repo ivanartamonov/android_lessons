@@ -17,18 +17,15 @@ import java.util.List;
 import online.yourfit.R;
 import online.yourfit.data.exercises.ExercisesManager;
 import online.yourfit.data.exercises.Exercise;
+import online.yourfit.ui.FragmentOpener;
 
 public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ExerciseViewHolder> {
 
     private List<Exercise> items = new ArrayList<>();
 
-    private IDetailExerciseListener listener;
+    private FragmentOpener listener;
 
-    public interface IDetailExerciseListener {
-        void openDetailExerciseFragment(int i);
-    }
-
-    ExercisesAdapter(IDetailExerciseListener listener) {
+    ExercisesAdapter(FragmentOpener listener) {
         this.listener = listener;
     }
 
@@ -58,7 +55,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exer
                 if (listener == null) {
                     throw new RuntimeException("Listener must be initialized");
                 }
-                listener.openDetailExerciseFragment(id);
+                listener.showFragment(ExerciseDetailFragment.newInstance(id));
             }
         });
     }

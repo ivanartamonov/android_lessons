@@ -23,6 +23,7 @@ import online.yourfit.activities.MainActivity;
 import online.yourfit.R;
 import online.yourfit.data.exercises.Exercise;
 import online.yourfit.core.NetworkService;
+import online.yourfit.ui.FragmentOpener;
 
 public class ExercisesFragment extends Fragment {
 
@@ -55,7 +56,7 @@ public class ExercisesFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        ExercisesAdapter.IDetailExerciseListener listener = (MainActivity) getActivity();
+        FragmentOpener listener = (MainActivity) getActivity();
 
         adapter = new ExercisesAdapter(listener);
         recyclerView.setAdapter(adapter);

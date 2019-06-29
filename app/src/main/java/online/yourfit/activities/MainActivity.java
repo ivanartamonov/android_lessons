@@ -3,6 +3,7 @@ package online.yourfit.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,18 +16,13 @@ import android.widget.TextView;
 
 import online.yourfit.R;
 import online.yourfit.data.user.User;
-import online.yourfit.ui.exercises.ExerciseDetailFragment;
-import online.yourfit.ui.exercises.ExercisesAdapter;
-import online.yourfit.ui.home.WorkoutDetailFragment;
-import online.yourfit.ui.home.WorkoutHistoryAdapter;
+import online.yourfit.ui.FragmentOpener;
 import online.yourfit.viewmodel.MainViewModel;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity
-        implements WorkoutHistoryAdapter.IDetailWorkoutListener,
-                   ExercisesAdapter.IDetailExerciseListener {
+public class MainActivity extends AppCompatActivity implements FragmentOpener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private MainViewModel viewModel;
@@ -99,21 +95,11 @@ public class MainActivity extends AppCompatActivity
                 || super.onSupportNavigateUp();
     }
 
-
     @Override
-    public void openDetailWorkoutFragment(int i) {
+    public void showFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.nav_host_fragment, WorkoutDetailFragment.newInstance(i))
-                .addToBackStack(null)
-                .commit();
-    }
-
-    @Override
-    public void openDetailExerciseFragment(int i) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.nav_host_fragment, ExerciseDetailFragment.newInstance(i))
+                .replace(R.id.nav_host_fragment, fragment)
                 .addToBackStack(null)
                 .commit();
     }

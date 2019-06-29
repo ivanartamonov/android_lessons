@@ -23,6 +23,7 @@ import online.yourfit.R;
 import online.yourfit.activities.StartWorkoutActivity;
 import online.yourfit.data.workout_history.WorkoutHistoryManager;
 import online.yourfit.data.user.User;
+import online.yourfit.ui.FragmentOpener;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        WorkoutHistoryAdapter.IDetailWorkoutListener listener = (MainActivity) getActivity();
+        FragmentOpener listener = (MainActivity) getActivity();
 
         WorkoutHistoryAdapter mAdapter = new WorkoutHistoryAdapter(WorkoutHistoryManager.getList(), listener);
         recyclerView.setAdapter(mAdapter);

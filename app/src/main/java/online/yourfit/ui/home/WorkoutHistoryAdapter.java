@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import online.yourfit.R;
 import online.yourfit.data.workout_history.WorkoutHistoryItem;
+import online.yourfit.ui.FragmentOpener;
 
 import java.util.List;
 
@@ -17,13 +18,9 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryVi
 
     List<WorkoutHistoryItem> items;
 
-    public interface IDetailWorkoutListener{
-        void openDetailWorkoutFragment(int i);
-    }
+    private FragmentOpener listener;
 
-    private IDetailWorkoutListener listener;
-
-    public WorkoutHistoryAdapter(List<WorkoutHistoryItem> items, IDetailWorkoutListener listener) {
+    public WorkoutHistoryAdapter(List<WorkoutHistoryItem> items, FragmentOpener listener) {
         this.items = items;
         this.listener = listener;
     }
@@ -50,7 +47,7 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryVi
                     throw new RuntimeException("Listener must be initialized");
                 }
 
-                listener.openDetailWorkoutFragment(id);
+                listener.showFragment(WorkoutDetailFragment.newInstance(id));
             }
         });
     }
