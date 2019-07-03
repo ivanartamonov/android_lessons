@@ -28,7 +28,11 @@
         android:id="@+id/nav_workout_history_detail"
         android:name="online.yourfit.ui.home.WorkoutDetailFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_workout_detail" />
+        tools:layout="@layout/fragment_workout_detail" >
+        <action
+            android:id="@+id/action_nav_workout_history_detail_to_addProgramFragment"
+            app:destination="@id/addProgramFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_programs"
@@ -61,4 +65,10 @@
         android:name="online.yourfit.ui.measurements.MeasurementsFragment"
         android:label="@string/menu_measurements"
         tools:layout="@layout/fragment_measurements" />
+
+    <fragment
+        android:id="@+id/addProgramFragment"
+        android:name="online.yourfit.ui.programs_add.AddProgramFragment"
+        android:label="add_program_fragment"
+        tools:layout="@layout/fragment_program_add" />
 </navigation>

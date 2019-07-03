@@ -29,6 +29,7 @@ dependencies {
 
     // Lifecycle components
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 
     // Room components
