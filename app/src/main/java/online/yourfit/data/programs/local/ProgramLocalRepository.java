@@ -22,16 +22,16 @@ public class ProgramLocalRepository {
         return dao.getAll();
     }
 
-    public void insert(Program user) {
-        new ProgramLocalRepository.InsertProgramAsyncTask(dao).execute(user);
+    public void insert(Program program) {
+        new ProgramLocalRepository.InsertProgramAsyncTask(dao).execute(program);
     }
 
-    public void update(Program user) {
-        new ProgramLocalRepository.UpdateProgramAsyncTask(dao).execute(user);
+    public void update(Program program) {
+        new ProgramLocalRepository.UpdateProgramAsyncTask(dao).execute(program);
     }
 
-    public void delete(Program user) {
-        new ProgramLocalRepository.DeleteProgramAsyncTask(dao).execute(user);
+    public void delete(Program program) {
+        new ProgramLocalRepository.DeleteProgramAsyncTask(dao).execute(program);
     }
 
     public void deleteAll() {

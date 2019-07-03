@@ -1,8 +1,6 @@
 package online.yourfit.ui.programs_add;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
@@ -10,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import online.yourfit.R;
+import online.yourfit.core.App;
 
 public class AddProgramFragment extends Fragment implements View.OnClickListener {
 
-    private AddProgramViewModel mViewModel;
+    private AddProgramViewModel viewModel;
 
     View root;
     EditText editTextTitle;
@@ -40,7 +38,7 @@ public class AddProgramFragment extends Fragment implements View.OnClickListener
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(AddProgramViewModel.class);
+        viewModel = new AddProgramViewModel(App.instance);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Новая программа");
 
@@ -56,6 +54,6 @@ public class AddProgramFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-
+        viewModel.createNew(editTextTitle.getText().toString());
     }
 }
