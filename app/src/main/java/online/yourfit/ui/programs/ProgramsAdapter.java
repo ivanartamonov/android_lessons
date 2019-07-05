@@ -15,10 +15,16 @@ import java.util.List;
 
 public class ProgramsAdapter extends RecyclerView.Adapter<ProgramsAdapter.ProgramsViewHolder> {
 
-    List<Program> items;
+    private List<Program> items;
+    private ProgramAdapterListener listener;
 
-    public ProgramsAdapter(List<Program> items) {
+    public interface ProgramAdapterListener {
+        void navigateToProgramDetails(int programId);
+    }
+
+    ProgramsAdapter(List<Program> items, ProgramAdapterListener listener) {
         this.items = items;
+        this.listener = listener;
     }
 
     @NonNull
@@ -33,6 +39,21 @@ public class ProgramsAdapter extends RecyclerView.Adapter<ProgramsAdapter.Progra
     @Override
     public void onBindViewHolder(@NonNull ProgramsViewHolder holder, int position) {
         holder.bind(this.items.get(position));
+
+        final int pos = position;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener == null) {
+                    throw new RuntimeException("Listener must be initialized");
+                }
+                listener.navigateToProgramDetails(getIdByPosition(pos));
+            }
+        });
+    }
+
+    private int getIdByPosition(int position) {
+        return this.items.get(position).getId();
     }
 
     @Override
@@ -40,14 +61,13 @@ public class ProgramsAdapter extends RecyclerView.Adapter<ProgramsAdapter.Progra
         return this.items.size();
     }
 
-    public static class ProgramsViewHolder extends RecyclerView.ViewHolder {
-
+    static class ProgramsViewHolder extends RecyclerView.ViewHolder {
         TextView tvProgramTitle;
         TextView tvProgramLevel;
         TextView tvProgramGoal;
         TextView tvProgramAuditory;
 
-        public ProgramsViewHolder(@NonNull View itemView) {
+        ProgramsViewHolder(@NonNull View itemView) {
             super(itemView);
 
             this.tvProgramTitle = itemView.findViewById(R.id.tv_programTitle);
@@ -56,7 +76,7 @@ public class ProgramsAdapter extends RecyclerView.Adapter<ProgramsAdapter.Progra
             this.tvProgramAuditory = itemView.findViewById(R.id.tv_programAuditory);
         }
 
-        public void bind(Program program) {
+        void bind(Program program) {
             this.tvProgramTitle.setText(program.getTitle());
             this.tvProgramLevel.setText(program.getLevelName());
             this.tvProgramGoal.setText(program.getGoalName());

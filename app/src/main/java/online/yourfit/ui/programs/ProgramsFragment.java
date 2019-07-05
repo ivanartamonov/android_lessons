@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import io.reactivex.disposables.CompositeDisposable;
 import online.yourfit.R;
 import online.yourfit.core.App;
@@ -24,7 +26,7 @@ import online.yourfit.data.programs.Program;
 
 import java.util.List;
 
-public class ProgramsFragment extends Fragment implements View.OnClickListener {
+public class ProgramsFragment extends Fragment implements View.OnClickListener, ProgramsAdapter.ProgramAdapterListener {
 
     private ProgramsViewModel viewModel;
 
@@ -32,6 +34,7 @@ public class ProgramsFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private RelativeLayout emptyListNotice;
     private Button btnAdd;
+    private FloatingActionButton fabAdd;
 
     @NonNull
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -50,14 +53,13 @@ public class ProgramsFragment extends Fragment implements View.OnClickListener {
         this.recyclerView = root.findViewById(R.id.programs_recycler);
         this.emptyListNotice = root.findViewById(R.id.empty_list_notice);
         this.btnAdd = root.findViewById(R.id.btn_create_program);
+        this.fabAdd = root.findViewById(R.id.fab_add_program);
 
         this.btnAdd.setOnClickListener(this);
+        this.fabAdd.setOnClickListener(this);
     }
 
     private void render() {
-        //List<Program> programs = new ArrayList<>();
-        // programs.add(new Program("Худышка", Program.LEVEL_BEGINNER, Program.GOAL_WEIGHT_LOSS, Program.AUDITORY_FEMALE));
-
         LiveData<List<Program>> liveData = viewModel.getProgramsList();
 
         liveData.observe(this, new Observer<List<Program>>() {
@@ -74,6 +76,7 @@ public class ProgramsFragment extends Fragment implements View.OnClickListener {
 
     private void showEmptyListMessage() {
         this.recyclerView.setVisibility(View.GONE);
+        this.fabAdd.hide();
         this.emptyListNotice.setVisibility(View.VISIBLE);
     }
 
@@ -83,13 +86,7 @@ public class ProgramsFragment extends Fragment implements View.OnClickListener {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
-        // this is data for recycler view
-        //programs.add(new Program("Худышка", Program.LEVEL_BEGINNER, Program.GOAL_WEIGHT_LOSS, Program.AUDITORY_FEMALE));
-        //programs.add(new Program("Сила творожка", Program.LEVEL_MIDDLE, Program.GOAL_MASS, Program.AUDITORY_MALE));
-        //programs.add(new Program("Бегемотик", Program.LEVEL_PRO, Program.GOAL_GOOD_SHAPE, Program.AUDITORY_ALL));
-
-        ProgramsAdapter mAdapter = new ProgramsAdapter(programs);
+        ProgramsAdapter mAdapter = new ProgramsAdapter(programs, this);
         recyclerView.setAdapter(mAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
@@ -107,9 +104,22 @@ public class ProgramsFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_create_program) {
-            NavController controller = NavHostFragment.findNavController(this);
-            controller.navigate(R.id.addProgramFragment);
+        switch (v.getId()) {
+            case R.id.fab_add_program:
+            case R.id.btn_create_program:
+                NavController controller = NavHostFragment.findNavController(this);
+                controller.navigate(R.id.addProgramFragment);
+                break;
         }
+    }
+
+    @Override
+    public void navigateToProgramDetails(int programId) {
+        NavController controller = NavHostFragment.findNavController(this);
+
+        Bundle args = new Bundle();
+        args.putInt("programId", programId);
+
+        controller.navigate(R.id.programDetailsFragment, args);
     }
 }
