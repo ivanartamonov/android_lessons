@@ -23,4 +23,8 @@ class ProgramsViewModel extends AndroidViewModel {
     LiveData<List<Program>> getProgramsList() {
         return localRepository.fetchAll();
     }
+
+    LiveData<Program> getProgramById(int id) {
+        return localRepository.findById(id);
+    }
 }

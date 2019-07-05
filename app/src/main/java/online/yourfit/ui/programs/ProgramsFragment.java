@@ -114,11 +114,11 @@ public class ProgramsFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
-    public void navigateToProgramDetails(int programId) {
+    public void navigateToProgramDetails(int id) {
         NavController controller = NavHostFragment.findNavController(this);
 
         Bundle args = new Bundle();
-        args.putInt("programId", programId);
+        args.putInt("programId", id);
 
         controller.navigate(R.id.programDetailsFragment, args);
     }

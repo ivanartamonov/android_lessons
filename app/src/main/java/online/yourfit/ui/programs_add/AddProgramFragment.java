@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,8 +43,6 @@ public class AddProgramFragment extends Fragment implements View.OnClickListener
         viewModel = new AddProgramViewModel(App.instance);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Новая программа");
-
-        // TODO: Use the ViewModel
     }
 
     private void initViews() {
@@ -54,6 +54,9 @@ public class AddProgramFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        this.editTextTitle.clearFocus();
         viewModel.createNew(editTextTitle.getText().toString());
+        NavController controller = NavHostFragment.findNavController(this);
+        controller.popBackStack();
     }
 }

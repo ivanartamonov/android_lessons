@@ -11,7 +11,7 @@ import online.yourfit.data.programs.local.ProgramDao;
 import online.yourfit.data.user.local.UserDao;
 import online.yourfit.data.user.User;
 
-@Database(entities = {User.class, Program.class}, version = 2)
+@Database(entities = {User.class, Program.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;

@@ -21,7 +21,7 @@ public class Program {
     public static final int AUDITORY_FEMALE = 2;
     public static final int AUDITORY_ALL = 3;
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     private int id;
 
