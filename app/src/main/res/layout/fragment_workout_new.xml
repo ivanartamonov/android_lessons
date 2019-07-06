@@ -17,6 +17,7 @@
         android:id="@+id/btn_stop_workout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Завершить тренировку" />
+        android:text="Завершить тренировку"
+        android:visibility="gone"/>
 
 </LinearLayout>
