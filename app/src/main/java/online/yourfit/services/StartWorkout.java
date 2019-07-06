@@ -87,6 +87,8 @@ public class StartWorkout extends Service {
             notificationBuilder = new Notification.Builder(this);
 
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("navigateTo", "workout");
         PendingIntent pi = PendingIntent.getActivity(this, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         return notificationBuilder

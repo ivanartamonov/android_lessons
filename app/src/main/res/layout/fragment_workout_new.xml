@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp"
-    tools:context=".ui.workout.WorkoutNewFragment">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_start_workout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Начать тренировку" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:context=".ui.workout.WorkoutNewFragment">
 
-    <Button
-        android:id="@+id/btn_stop_workout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Завершить тренировку"
-        android:visibility="gone"/>
+        <Button
+            android:id="@+id/btn_start_workout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Начать тренировку" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_stop_workout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Завершить тренировку"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/exercises_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"/>
+
+        <Button
+            android:id="@+id/btn_addExercise"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorLightGrey"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:text="Добавить упражнение" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

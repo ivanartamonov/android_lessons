@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private MainViewModel viewModel;
+    private NavController navController;
 
     // Views
     Toolbar toolbar;
@@ -38,14 +40,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         viewModel = new MainViewModel(this.getApplication());
-
         setContentView(R.layout.main_activity);
 
+        this.processIntent(getIntent());
         this.initViews();
         this.initNavigation();
         this.setUser();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        this.processIntent(intent);
+    }
+
+    private void processIntent(Intent intent) {
+        String navigateArg = intent.getStringExtra("navigateTo");
+        if (navigateArg != null && navigateArg.equals("workout")) {
+            navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+            navController.navigate(R.id.workoutNewFragment);
+        }
     }
 
     private void initViews() {
@@ -67,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 .setDrawerLayout(drawer)
                 .build();
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
