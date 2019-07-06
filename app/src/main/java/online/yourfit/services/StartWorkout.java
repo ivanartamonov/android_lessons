@@ -12,7 +12,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import online.yourfit.R;
-import online.yourfit.ui.workout.StartWorkoutActivity;
+import online.yourfit.ui.MainActivity;
 
 public class StartWorkout extends Service {
 
@@ -86,7 +86,7 @@ public class StartWorkout extends Service {
         else
             notificationBuilder = new Notification.Builder(this);
 
-        Intent intent = new Intent(this, StartWorkoutActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         return notificationBuilder

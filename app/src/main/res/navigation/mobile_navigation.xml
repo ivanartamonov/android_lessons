@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_workout_history_detail"
             app:destination="@id/nav_workout_history_detail" />
+        <action
+            android:id="@+id/action_nav_home_to_workoutNewFragment"
+            app:destination="@id/workoutNewFragment" />
     </fragment>
 
     <fragment
@@ -84,4 +87,10 @@
             android:name="programId"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/workoutNewFragment"
+        android:name="online.yourfit.ui.workout.WorkoutNewFragment"
+        android:label="fragment_workout_new"
+        tools:layout="@layout/fragment_workout_new" />
 </navigation>

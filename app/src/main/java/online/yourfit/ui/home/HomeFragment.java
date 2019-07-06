@@ -1,6 +1,5 @@
 package online.yourfit.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import online.yourfit.R;
-import online.yourfit.ui.workout.StartWorkoutActivity;
 import online.yourfit.data.workout_history.WorkoutHistoryManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -64,12 +62,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Work
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fab_add_workout:
-                Intent intent = new Intent(this.getContext(), StartWorkoutActivity.class);
-                startActivityForResult(intent, 1);
-                break;
-        }
+        NavController controller = NavHostFragment.findNavController(this);
+        controller.navigate(R.id.workoutNewFragment);
     }
 
     @Override

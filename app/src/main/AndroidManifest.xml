@@ -16,8 +16,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.workout.StartWorkoutActivity" />
-
         <service
             android:name=".services.StartWorkout"
             android:enabled="true"
