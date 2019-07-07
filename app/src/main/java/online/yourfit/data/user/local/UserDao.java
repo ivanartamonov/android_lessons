@@ -3,6 +3,7 @@ package online.yourfit.data.user.local;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -20,7 +21,7 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE id = :id")
     Flowable<User> getById(long id);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(User user);
 
     @Update

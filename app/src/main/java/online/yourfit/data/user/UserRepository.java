@@ -1,16 +1,22 @@
 package online.yourfit.data.user;
 
 import android.app.Application;
+import android.util.Log;
 
 import io.reactivex.Flowable;
 import online.yourfit.data.user.local.UserLocalRepository;
+import online.yourfit.data.user.remote.UserRemoteRepository;
 
 public class UserRepository {
 
+    public static final String TAG = "UserRepository";
+
     private UserLocalRepository localRepository;
+    private UserRemoteRepository remoteRepository;
 
     public UserRepository(Application application) {
         localRepository = new UserLocalRepository(application);
+        remoteRepository = new UserRemoteRepository();
     }
 
     public void insert(User user) {
@@ -29,7 +35,14 @@ public class UserRepository {
         localRepository.deleteAll();
     }
 
-    public Flowable<User> findById(int id) {
+    public Flowable<User> findByIdLocal(int id) {
         return localRepository.findById(id);
+    }
+
+    public Flowable<User> findByIdRemote(int id) {
+        return remoteRepository.findById(id).doOnNext(user -> {
+            Log.d(TAG, "Save in local DB");
+            localRepository.insert(user);
+        });
     }
 }

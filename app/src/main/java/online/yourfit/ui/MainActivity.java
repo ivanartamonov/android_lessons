@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -95,14 +96,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUser() {
-        this.viewModel.getUser().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                if (user != null) {
-                    displayUserInfo(user);
-                }
+
+        LiveData<User> ld = this.viewModel.getUser();
+
+        ld.observe(this, user -> {
+            displayUserInfo(user);
+            Log.d("UserRepository", user.getName());
+        });
+
+        /*
+        this.viewModel.getUser().observe(this, user -> {
+            if (user != null) {
+                displayUserInfo(user);
             }
         });
+
+         */
     }
 
     private void displayUserInfo(User user) {
