@@ -1,12 +1,12 @@
 package online.yourfit.data.user.local;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import io.reactivex.Flowable;
 import online.yourfit.data.user.User;
 
 import java.util.List;
@@ -15,10 +15,10 @@ import java.util.List;
 public interface UserDao {
 
     @Query("SELECT * FROM user")
-    LiveData<List<User>> getAll();
+    Flowable<List<User>> getAll();
 
     @Query("SELECT * FROM user WHERE id = :id")
-    LiveData<User> getById(long id);
+    Flowable<User> getById(long id);
 
     @Insert
     void insert(User user);

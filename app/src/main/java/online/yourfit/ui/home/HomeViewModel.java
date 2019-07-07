@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.LiveDataReactiveStreams;
 
 import online.yourfit.data.user.User;
 import online.yourfit.data.user.UserRepository;
@@ -19,6 +20,6 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public LiveData<User> getUser() {
-        return userRepository.findById(17);
+        return LiveDataReactiveStreams.fromPublisher(userRepository.findById(17));
     }
 }
