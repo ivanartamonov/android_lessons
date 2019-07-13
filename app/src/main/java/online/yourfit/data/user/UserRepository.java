@@ -40,9 +40,18 @@ public class UserRepository {
     }
 
     public Flowable<User> findByIdRemote(int id) {
+        Log.d("UserRepository", "findByIdRemote");
         return remoteRepository.findById(id).doOnNext(user -> {
             Log.d(TAG, "Save in local DB");
             localRepository.insert(user);
         });
+    }
+
+    public Flowable<User> findById(int id) {
+        Log.d("UserRepository", "findById");
+        return this.findByIdRemote(id)
+                .onErrorResumeNext(throwable -> {
+                    return findByIdLocal(id);
+                });
     }
 }

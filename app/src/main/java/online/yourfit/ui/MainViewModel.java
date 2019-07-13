@@ -6,10 +6,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.MutableLiveData;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import online.yourfit.data.user.User;
@@ -17,6 +17,7 @@ import online.yourfit.data.user.UserRepository;
 
 public class MainViewModel extends AndroidViewModel {
 
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private UserRepository userRepository;
 
     private MutableLiveData<User> user = new MutableLiveData<>();
@@ -31,7 +32,7 @@ public class MainViewModel extends AndroidViewModel {
 
         if (user.getValue() == null) {
             Log.d("UserRepository", "user is null");
-            Disposable disposable = this.userRepository.findByIdLocal(17)
+            Disposable disposable = this.userRepository.findById(17)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(u -> {
@@ -41,22 +42,17 @@ public class MainViewModel extends AndroidViewModel {
                         Log.d("UserRepository", error.getMessage());
                     }, () -> {
                         Log.d("UserRepository", "On Complete");
-                        if (user.getValue() == null) {
-                            Log.d("UserRepository", "user is null");
-                            Disposable d = this.userRepository.findByIdRemote(17)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(remoteUser -> {
-                                        Log.d("UserRepository", "Fetch from API");
-                                        user.setValue(remoteUser);
-                                    });
-                        } else {
-                            Log.d("UserRepository", "user is " + user.getValue().getName());
-                        }
                     });
+
+            this.compositeDisposable.add(disposable);
         }
 
         return this.user;
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        this.compositeDisposable.clear();
+    }
 }
