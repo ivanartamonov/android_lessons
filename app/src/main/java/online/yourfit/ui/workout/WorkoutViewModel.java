@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -40,7 +40,7 @@ public class WorkoutViewModel extends ViewModel {
     }
 
     private void initExercises() {
-        Observable<List<Exercise>> observable = NetworkService.getInstance()
+        Flowable<List<Exercise>> observable = NetworkService.getInstance()
                 .getExercisesApi()
                 .getExercises();
 

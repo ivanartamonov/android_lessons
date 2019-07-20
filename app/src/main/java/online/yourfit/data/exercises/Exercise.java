@@ -1,12 +1,17 @@
 package online.yourfit.data.exercises;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
+@Entity
 public class Exercise {
 
     public static final int TYPE_BASE = 1;
     public static final int TYPE_ISOLATED = 2;
 
+    @PrimaryKey
     @SerializedName("id")
     private int id;
 
@@ -37,6 +42,10 @@ public class Exercise {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -15,15 +15,16 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import online.yourfit.core.App;
+import online.yourfit.data.exercises.ExerciseRepository;
 import online.yourfit.data.exercises.ExercisesManager;
 import online.yourfit.R;
 import online.yourfit.data.exercises.Exercise;
-import online.yourfit.core.NetworkService;
 
 public class ExercisesFragment extends Fragment implements ExercisesAdapter.ExercisesAdapterListener {
 
@@ -59,9 +60,8 @@ public class ExercisesFragment extends Fragment implements ExercisesAdapter.Exer
         adapter = new ExercisesAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        Observable<List<Exercise>> observable = NetworkService.getInstance()
-                .getExercisesApi()
-                .getExercises();
+        ExerciseRepository repository = new ExerciseRepository(App.instance);
+        Flowable<List<Exercise>> observable = repository.getAll();
 
         compositeDisposable.add(observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
