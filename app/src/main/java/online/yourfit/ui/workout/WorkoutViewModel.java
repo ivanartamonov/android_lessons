@@ -14,8 +14,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import online.yourfit.core.NetworkService;
 import online.yourfit.data.exercises.Exercise;
+import online.yourfit.data.exercises.ExerciseRepository;
 
 public class WorkoutViewModel extends ViewModel {
 
@@ -40,9 +40,8 @@ public class WorkoutViewModel extends ViewModel {
     }
 
     private void initExercises() {
-        Flowable<List<Exercise>> observable = NetworkService.getInstance()
-                .getExercisesApi()
-                .getExercises();
+        ExerciseRepository exerciseRepository = new ExerciseRepository();
+        Flowable<List<Exercise>> observable = exerciseRepository.getAll();
 
         compositeDisposable.add(observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
