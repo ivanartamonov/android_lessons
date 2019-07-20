@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import online.yourfit.data.user.User;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface UserDao {
     Flowable<List<User>> getAll();
 
     @Query("SELECT * FROM user WHERE id = :id")
-    Flowable<User> getById(long id);
+    Single<User> getById(long id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(User user);

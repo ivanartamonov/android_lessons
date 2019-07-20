@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import online.yourfit.data.user.local.UserLocalRepository;
 import online.yourfit.data.user.remote.UserRemoteRepository;
 
@@ -35,7 +36,7 @@ public class UserRepository {
         localRepository.deleteAll();
     }
 
-    public Flowable<User> findByIdLocal(int id) {
+    public Single<User> findByIdLocal(int id) {
         return localRepository.findById(id);
     }
 
@@ -49,9 +50,9 @@ public class UserRepository {
 
     public Flowable<User> findById(int id) {
         Log.d("UserRepository", "findById");
-        return this.findByIdRemote(id)
+        return this.findByIdLocal(id).toFlowable()
                 .onErrorResumeNext(throwable -> {
-                    return findByIdLocal(id);
+                    return findByIdRemote(id);
                 });
     }
 }

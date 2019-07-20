@@ -3,7 +3,7 @@ package online.yourfit.data.user.local;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import io.reactivex.Flowable;
+import io.reactivex.Single;
 import online.yourfit.core.db.AppDatabase;
 import online.yourfit.data.user.User;
 
@@ -31,7 +31,7 @@ public class UserLocalRepository {
         new DeleteAllUsersAsyncTask(userDao).execute();
     }
 
-    public Flowable<User> findById(int id) {
+    public Single<User> findById(int id) {
         return userDao.getById(id);
     }
 

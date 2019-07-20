@@ -20,6 +20,6 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public LiveData<User> getUser() {
-        return LiveDataReactiveStreams.fromPublisher(userRepository.findByIdLocal(17));
+        return LiveDataReactiveStreams.fromPublisher(userRepository.findById(17));
     }
 }
