@@ -1,6 +1,5 @@
 package online.yourfit.data.exercises;
 
-import android.app.Application;
 import android.util.Log;
 
 import java.util.List;
@@ -15,9 +14,9 @@ public class ExerciseRepository {
     private ExerciseRemoteRepository remoteRepository;
     private ExerciseLocalRepository localRepository;
 
-    public ExerciseRepository(Application application) {
+    public ExerciseRepository() {
         remoteRepository = new ExerciseRemoteRepository();
-        localRepository = new ExerciseLocalRepository(application);
+        localRepository = new ExerciseLocalRepository();
     }
 
     public Single<List<Exercise>> getAllLocal() {

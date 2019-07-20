@@ -1,21 +1,23 @@
 package online.yourfit.data.exercises.local;
 
-import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
-import online.yourfit.core.db.AppDatabase;
+import online.yourfit.core.App;
 import online.yourfit.data.exercises.Exercise;
 
 public class ExerciseLocalRepository {
 
-    private ExerciseDao exerciseDao;
+    @Inject
+    ExerciseDao exerciseDao;
 
-    public ExerciseLocalRepository(Application application) {
-        exerciseDao = AppDatabase.getInstance(application.getApplicationContext()).exerciseDao();
+    public ExerciseLocalRepository() {
+        App.instance.getAppComponent().inject(this);
     }
 
     public Single<List<Exercise>> getAll() {

@@ -60,7 +60,7 @@ public class ExercisesFragment extends Fragment implements ExercisesAdapter.Exer
         adapter = new ExercisesAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        ExerciseRepository repository = new ExerciseRepository(App.instance);
+        ExerciseRepository repository = new ExerciseRepository();
         Flowable<List<Exercise>> observable = repository.getAll();
 
         compositeDisposable.add(observable.subscribeOn(Schedulers.io())

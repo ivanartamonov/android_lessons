@@ -2,16 +2,19 @@ package online.yourfit.data.exercises.remote;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Flowable;
-import online.yourfit.core.NetworkService;
+import online.yourfit.core.App;
 import online.yourfit.data.exercises.Exercise;
 
 public class ExerciseRemoteRepository {
 
-    private ExercisesApi exercisesApi;
+    @Inject
+    ExercisesApi exercisesApi;
 
     public ExerciseRemoteRepository() {
-        exercisesApi = NetworkService.getInstance().getExercisesApi();
+        App.instance.getAppComponent().inject(this);
     }
 
     public Flowable<List<Exercise>> getAll() {
