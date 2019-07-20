@@ -1,21 +1,23 @@
 package online.yourfit.data.programs.local;
 
-import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import online.yourfit.core.db.AppDatabase;
+import javax.inject.Inject;
+
+import online.yourfit.core.App;
 import online.yourfit.data.programs.Program;
 
 public class ProgramLocalRepository {
 
-    private ProgramDao dao;
+    @Inject
+    ProgramDao dao;
 
-    public ProgramLocalRepository(Application application) {
-        dao = AppDatabase.getInstance(application.getApplicationContext()).programDao();
+    public ProgramLocalRepository() {
+        App.instance.getAppComponent().inject(this);
     }
 
     public LiveData<List<Program>> fetchAll() {

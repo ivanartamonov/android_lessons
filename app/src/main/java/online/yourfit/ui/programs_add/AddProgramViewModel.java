@@ -13,7 +13,7 @@ class AddProgramViewModel extends AndroidViewModel {
 
     AddProgramViewModel(Application application) {
         super(application);
-        localRepository = new ProgramLocalRepository(application);
+        localRepository = new ProgramLocalRepository();
     }
 
     void createNew(String title) {

@@ -17,7 +17,7 @@ class ProgramsViewModel extends AndroidViewModel {
 
     ProgramsViewModel(@NonNull Application application) {
         super(application);
-        localRepository = new ProgramLocalRepository(application);
+        localRepository = new ProgramLocalRepository();
     }
 
     LiveData<List<Program>> getProgramsList() {
