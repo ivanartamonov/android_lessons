@@ -24,7 +24,7 @@ public class MainViewModel extends AndroidViewModel {
 
     MainViewModel(@NonNull Application application) {
         super(application);
-        this.userRepository = new UserRepository(application);
+        this.userRepository = new UserRepository();
     }
 
     public LiveData<User> getUser() {

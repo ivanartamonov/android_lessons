@@ -1,18 +1,20 @@
 package online.yourfit.data.user.local;
 
-import android.app.Application;
 import android.os.AsyncTask;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
-import online.yourfit.core.db.AppDatabase;
+import online.yourfit.core.App;
 import online.yourfit.data.user.User;
 
 public class UserLocalRepository {
 
-    private UserDao userDao;
+    @Inject
+    UserDao userDao;
 
-    public UserLocalRepository(Application application) {
-        userDao = AppDatabase.getInstance(application.getApplicationContext()).userDao();
+    public UserLocalRepository() {
+        App.instance.getAppComponent().inject(this);
     }
 
     public void insert(User user) {

@@ -16,7 +16,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
-        this.userRepository = new UserRepository(application);
+        this.userRepository = new UserRepository();
     }
 
     public LiveData<User> getUser() {

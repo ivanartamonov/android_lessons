@@ -64,7 +64,7 @@ public class InitUser {
     private void saveUserInDatabase(User user) {
         Log.d(TAG, "Saving user in database...");
 
-        UserRepository userRepository = new UserRepository(this.activity.getApplication());
+        UserRepository userRepository = new UserRepository();
         userRepository.deleteAll();
         userRepository.insert(user);
     }

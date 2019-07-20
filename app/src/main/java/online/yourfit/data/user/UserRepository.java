@@ -1,6 +1,5 @@
 package online.yourfit.data.user;
 
-import android.app.Application;
 import android.util.Log;
 
 import io.reactivex.Flowable;
@@ -15,8 +14,8 @@ public class UserRepository {
     private UserLocalRepository localRepository;
     private UserRemoteRepository remoteRepository;
 
-    public UserRepository(Application application) {
-        localRepository = new UserLocalRepository(application);
+    public UserRepository() {
+        localRepository = new UserLocalRepository();
         remoteRepository = new UserRemoteRepository();
     }
 
