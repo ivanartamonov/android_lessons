@@ -1,20 +1,15 @@
 package online.yourfit.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -85,32 +80,10 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                Log.d("NAV", "Action: " + destination.getLabel());
-            }
-        });
     }
 
     private void setUser() {
-
-        LiveData<User> ld = this.viewModel.getUser();
-
-        ld.observe(this, user -> {
-            displayUserInfo(user);
-            Log.d("UserRepository", user.getName());
-        });
-
-        /*
-        this.viewModel.getUser().observe(this, user -> {
-            if (user != null) {
-                displayUserInfo(user);
-            }
-        });
-
-         */
+        this.viewModel.getUser().observe(this, this::displayUserInfo);
     }
 
     private void displayUserInfo(User user) {
