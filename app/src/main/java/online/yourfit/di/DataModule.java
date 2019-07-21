@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import online.yourfit.core.db.AppDatabase;
+import online.yourfit.core.AppDatabase;
 import online.yourfit.data.exercises.local.ExerciseDao;
 import online.yourfit.data.programs.local.ProgramDao;
 import online.yourfit.data.user.local.UserDao;

@@ -1,4 +1,4 @@
-package online.yourfit.core.db;
+package online.yourfit.core;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
