@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import online.yourfit.R;
-import online.yourfit.data.exercises.ExercisesManager;
 import online.yourfit.data.exercises.Exercise;
 
 public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ExerciseViewHolder> {
@@ -34,7 +33,6 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exer
 
     void setItems(List<Exercise> exercises) {
         this.items = exercises;
-        ExercisesManager.setList(exercises);
         notifyDataSetChanged();
     }
 
@@ -51,15 +49,12 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exer
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
         holder.bind(this.items.get(position));
 
-        final int id = position;
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener == null) {
-                    throw new RuntimeException("Listener must be initialized");
-                }
-                listener.navigateToExerciseDetails(id);
+        final int id = this.items.get(position).getId();
+        holder.itemView.setOnClickListener(v -> {
+            if (listener == null) {
+                throw new RuntimeException("Listener must be initialized");
             }
+            listener.navigateToExerciseDetails(id);
         });
     }
 
