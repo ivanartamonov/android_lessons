@@ -5,7 +5,6 @@ import android.util.Log;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 import online.yourfit.data.exercises.local.ExerciseLocalRepository;
 import online.yourfit.data.exercises.remote.ExerciseRemoteRepository;
 
@@ -19,7 +18,7 @@ public class ExerciseRepository {
         localRepository = new ExerciseLocalRepository();
     }
 
-    public Single<List<Exercise>> getAllLocal() {
+    public Flowable<List<Exercise>> getAllLocal() {
         Log.d("ExerciseRepository", "getAllLocal");
         return localRepository.getAll();
     }
@@ -33,15 +32,17 @@ public class ExerciseRepository {
     }
 
     public Flowable<List<Exercise>> getAll() {
-        return this.getAllRemote();
-        /*
         Log.d("ExerciseRepository", "findById");
-        return this.getAllLocal().toFlowable()
+        return this.getAllLocal()
+                .map(list -> {
+                    if(list.size() == 0) throw new Exception();
+                    return list;
+                })
                 .onErrorResumeNext(throwable -> {
                     return getAllRemote();
                 });
 
-         */
+
     }
 
 }

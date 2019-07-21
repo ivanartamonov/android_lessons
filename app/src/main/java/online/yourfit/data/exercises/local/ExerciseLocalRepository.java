@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
+import io.reactivex.Flowable;
 import online.yourfit.core.App;
 import online.yourfit.data.exercises.Exercise;
 
@@ -20,7 +20,7 @@ public class ExerciseLocalRepository {
         App.instance.getAppComponent().inject(this);
     }
 
-    public Single<List<Exercise>> getAll() {
+    public Flowable<List<Exercise>> getAll() {
         Log.d("ExerciseRepository", "Single<List<Exercise>> getAll");
         return exerciseDao.getAll();
     }

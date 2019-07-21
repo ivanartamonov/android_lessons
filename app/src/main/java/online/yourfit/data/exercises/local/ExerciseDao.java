@@ -7,14 +7,14 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import io.reactivex.Single;
+import io.reactivex.Flowable;
 import online.yourfit.data.exercises.Exercise;
 
 @Dao
 public interface ExerciseDao {
 
     @Query("SELECT * FROM exercise")
-    Single<List<Exercise>> getAll();
+    Flowable<List<Exercise>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Exercise exercise);
