@@ -1,4 +1,4 @@
-package online.yourfit.services;
+package online.yourfit.services.workout;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -14,18 +14,15 @@ import android.util.Log;
 import online.yourfit.R;
 import online.yourfit.ui.MainActivity;
 
-public class StartWorkout extends Service {
+public class WorkoutService extends Service {
 
-    public static final String TAG = "StartWorkout";
+    public static final String TAG = "WorkoutService";
     public static final String ACTION_START = "START";
     public static final String ACTION_STOP = "STOP";
 
     private static final int NOTIFICATION_ID = 1;
     private static final int REQUEST_CODE = 1;
-    private static final String CHANNEL_ID = "StartWorkout";
-
-    public StartWorkout() {
-    }
+    private static final String CHANNEL_ID = "WorkoutService";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -35,7 +32,6 @@ public class StartWorkout extends Service {
 
     @Override
     public void onCreate() {
-        Log.d(TAG, "onCreate");
         createNotificationChannel();
         super.onCreate();
     }
@@ -57,12 +53,6 @@ public class StartWorkout extends Service {
         }
 
         return START_STICKY;
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.d(TAG, "onDestroy");
-        super.onDestroy();
     }
 
     private void createNotificationChannel(){

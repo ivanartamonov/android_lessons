@@ -17,7 +17,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <service
-            android:name=".services.StartWorkout"
+            android:name=".services.workout.WorkoutService"
             android:enabled="true"
             android:exported="true" />
 

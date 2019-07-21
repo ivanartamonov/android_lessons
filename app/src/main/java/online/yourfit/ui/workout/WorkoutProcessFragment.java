@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import online.yourfit.R;
-import online.yourfit.services.StartWorkout;
+import online.yourfit.services.workout.WorkoutService;
 import online.yourfit.ui.BaseFragment;
 
 public class WorkoutProcessFragment extends BaseFragment implements View.OnClickListener {
@@ -58,8 +58,8 @@ public class WorkoutProcessFragment extends BaseFragment implements View.OnClick
 
     private void stopWorkout() {
         this.viewModel.stopWorkout();
-        Intent intent = new Intent(this.activity, StartWorkout.class);
-        intent.setAction(StartWorkout.ACTION_STOP);
+        Intent intent = new Intent(this.activity, WorkoutService.class);
+        intent.setAction(WorkoutService.ACTION_STOP);
         this.activity.stopService(intent);
     }
 }

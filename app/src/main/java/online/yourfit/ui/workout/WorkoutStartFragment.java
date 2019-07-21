@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import online.yourfit.R;
-import online.yourfit.services.StartWorkout;
+import online.yourfit.services.workout.WorkoutService;
 import online.yourfit.ui.BaseFragment;
 
 public class WorkoutStartFragment extends BaseFragment implements View.OnClickListener {
@@ -57,8 +57,8 @@ public class WorkoutStartFragment extends BaseFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.btn_start_workout:
                 this.viewModel.startWorkout();
-                intent = new Intent(this.activity, StartWorkout.class);
-                intent.setAction(StartWorkout.ACTION_START);
+                intent = new Intent(this.activity, WorkoutService.class);
+                intent.setAction(WorkoutService.ACTION_START);
                 this.activity.startService(intent);
                 NavController controller = NavHostFragment.findNavController(this);
                 controller.navigate(R.id.workoutProcessFragment);
