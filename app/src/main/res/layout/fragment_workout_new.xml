@@ -1,45 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    tools:context="online.yourfit.ui.workout.WorkoutStartFragment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorLightGrey"
+    android:layout_gravity="center"
+    android:padding="16dp"
+    android:layout_marginLeft="32dp"
+    android:layout_marginRight="32dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="8dp"
-        tools:context=".ui.workout.WorkoutNewFragment">
+    <TextView
+        android:id="@+id/txt_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="Отлично! Давайте начнём!"/>
 
-        <Button
-            android:id="@+id/btn_start_workout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Начать тренировку" />
+    <Button
+        android:id="@+id/btn_start_workout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_info"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Начать тренировку" />
 
-        <Button
-            android:id="@+id/btn_stop_workout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Завершить тренировку"
-            android:visibility="gone" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/exercises_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"/>
-
-        <Button
-            android:id="@+id/btn_addExercise"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@color/colorLightGrey"
-            android:paddingTop="24dp"
-            android:paddingBottom="24dp"
-            android:text="Добавить упражнение" />
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>

@@ -90,7 +90,16 @@
 
     <fragment
         android:id="@+id/workoutNewFragment"
-        android:name="online.yourfit.ui.workout.WorkoutNewFragment"
+        android:name="online.yourfit.ui.workout.WorkoutStartFragment"
         android:label="fragment_workout_new"
-        tools:layout="@layout/fragment_workout_new" />
+        tools:layout="@layout/fragment_workout_new" >
+        <action
+            android:id="@+id/action_workoutNewFragment_to_workoutProcessFragment"
+            app:destination="@id/workoutProcessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workoutProcessFragment"
+        android:name="online.yourfit.ui.workout.WorkoutProcessFragment"
+        android:label="fragment_workout_process"
+        tools:layout="@layout/fragment_workout_process" />
 </navigation>
