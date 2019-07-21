@@ -52,17 +52,19 @@ public class WorkoutStartFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        Intent intent;
-
         switch (v.getId()) {
             case R.id.btn_start_workout:
-                this.viewModel.startWorkout();
-                intent = new Intent(this.activity, WorkoutService.class);
-                intent.setAction(WorkoutService.ACTION_START);
-                this.activity.startService(intent);
+                this.startWorkout();
                 NavController controller = NavHostFragment.findNavController(this);
                 controller.navigate(R.id.workoutProcessFragment);
                 break;
         }
+    }
+
+    public void startWorkout() {
+        this.viewModel.startWorkout();
+        Intent intent = new Intent(this.activity, WorkoutService.class);
+        intent.setAction(WorkoutService.ACTION_START);
+        this.activity.startService(intent);
     }
 }

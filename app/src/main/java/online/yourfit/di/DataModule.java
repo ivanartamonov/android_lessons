@@ -12,6 +12,7 @@ import online.yourfit.core.AppDatabase;
 import online.yourfit.data.exercises.local.ExerciseDao;
 import online.yourfit.data.programs.local.ProgramDao;
 import online.yourfit.data.user.local.UserDao;
+import online.yourfit.data.workout.local.WorkoutDao;
 
 @Module
 public class DataModule {
@@ -46,5 +47,11 @@ public class DataModule {
     @Singleton
     public ExerciseDao provideExerciseDao(AppDatabase appDatabase) {
         return appDatabase.exerciseDao();
+    }
+
+    @Provides
+    @Singleton
+    public WorkoutDao provideWorkoutDao(AppDatabase appDatabase) {
+        return appDatabase.workoutDao();
     }
 }

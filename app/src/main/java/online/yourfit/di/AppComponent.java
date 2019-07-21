@@ -8,6 +8,7 @@ import online.yourfit.data.exercises.remote.ExerciseRemoteRepository;
 import online.yourfit.data.programs.local.ProgramLocalRepository;
 import online.yourfit.data.user.local.UserLocalRepository;
 import online.yourfit.data.user.remote.UserRemoteRepository;
+import online.yourfit.data.workout.local.WorkoutLocalRepository;
 
 @Singleton
 @Component(modules = {NetworkModule.class, DataModule.class})
@@ -18,4 +19,6 @@ public interface AppComponent {
     void inject(ExerciseRemoteRepository exerciseRemoteRepository);
 
     void inject(ProgramLocalRepository programLocalRepository);
+
+    void inject(WorkoutLocalRepository workoutLocalRepository);
 }

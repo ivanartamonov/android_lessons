@@ -14,40 +14,47 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import online.yourfit.data.user.User;
 import online.yourfit.data.user.UserRepository;
+import online.yourfit.data.workout.Workout;
+import online.yourfit.data.workout.WorkoutRepository;
 
 public class MainViewModel extends AndroidViewModel {
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private UserRepository userRepository;
+    private WorkoutRepository workoutRepository;
 
     private MutableLiveData<User> user = new MutableLiveData<>();
+    private MutableLiveData<Workout> ongoingWorkout = new MutableLiveData<>();
 
-    MainViewModel(@NonNull Application application) {
+    public MainViewModel(@NonNull Application application) {
         super(application);
         this.userRepository = new UserRepository();
+        this.workoutRepository = new WorkoutRepository();
     }
 
     public LiveData<User> getUser() {
-        Log.d("UserRepository", "getUser");
-
         if (user.getValue() == null) {
-            Log.d("UserRepository", "user is null");
             Disposable disposable = this.userRepository.findById(17)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(u -> {
-                        Log.d("UserRepository", "Found in local db: " + u.getName());
-                        user.setValue(u);
-                    }, error -> {
-                        Log.d("UserRepository", error.getMessage());
-                    }, () -> {
-                        Log.d("UserRepository", "On Complete");
-                    });
+                    .subscribe(u -> user.setValue(u));
 
             this.compositeDisposable.add(disposable);
         }
 
         return this.user;
+    }
+
+    public LiveData<Workout> getOngoingWorkout() {
+        Disposable disposable = this.workoutRepository.findOngoingWorkout()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(workout -> ongoingWorkout.setValue(workout),
+                        throwable -> ongoingWorkout.setValue(null));
+
+        this.compositeDisposable.add(disposable);
+
+        return ongoingWorkout;
     }
 
     @Override

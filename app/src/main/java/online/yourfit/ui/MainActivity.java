@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         this.processIntent(getIntent());
         this.initViews();
         this.initNavigation();
-        this.setUser();
+        this.startObserving();
     }
 
     @Override
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
         this.imgUserAvatar = navigationView.getHeaderView(0).findViewById(R.id.img_user_avatar);
     }
 
+    private void startObserving() {
+        this.viewModel.getUser().observe(this, this::displayUserInfo);
+    }
+
     private void initNavigation() {
         setSupportActionBar(this.toolbar);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -80,10 +85,6 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    }
-
-    private void setUser() {
-        this.viewModel.getUser().observe(this, this::displayUserInfo);
     }
 
     private void displayUserInfo(User user) {
