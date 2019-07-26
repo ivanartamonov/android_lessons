@@ -9,13 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import online.yourfit.R;
+import online.yourfit.data.workout.Workout;
 import online.yourfit.data.workout_history.WorkoutHistoryItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryViewHolder> {
 
-    private List<WorkoutHistoryItem> items;
+    private List<Workout> items = new ArrayList<>();
 
     private WorkoutHistoryAdapterListener listener;
 
@@ -23,9 +25,13 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryVi
         void navigateToWorkoutHistoryDetail(int id);
     }
 
-    WorkoutHistoryAdapter(List<WorkoutHistoryItem> items, WorkoutHistoryAdapterListener listener) {
-        this.items = items;
+    public WorkoutHistoryAdapter(WorkoutHistoryAdapterListener listener) {
         this.listener = listener;
+    }
+
+    public void setItems(List<Workout> workouts) {
+        this.items = workouts;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -40,18 +46,13 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryVi
     @Override
     public void onBindViewHolder(@NonNull WorkoutHistoryViewHolder holder, int position) {
         holder.bind(this.items.get(position));
-        Log.d("ADAPTER", "onBindViewHolder - " + position);
         final int id = position;
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("ADAPTER", "Open Fragment #" + id);
-                if (listener == null) {
-                    throw new RuntimeException("Listener must be initialized");
-                }
-
-                listener.navigateToWorkoutHistoryDetail(id);
+        holder.itemView.setOnClickListener(v -> {
+            Log.d("ADAPTER", "Open Fragment #" + id);
+            if (listener == null) {
+                throw new RuntimeException("Listener must be initialized");
             }
+            listener.navigateToWorkoutHistoryDetail(id);
         });
     }
 

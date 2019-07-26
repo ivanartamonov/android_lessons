@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import online.yourfit.R;
-import online.yourfit.data.workout_history.WorkoutHistoryItem;
+import online.yourfit.data.workout.Workout;
 
 class WorkoutHistoryViewHolder extends RecyclerView.ViewHolder {
 
@@ -22,9 +22,9 @@ class WorkoutHistoryViewHolder extends RecyclerView.ViewHolder {
         this.tvProgramDuration = itemView.findViewById(R.id.tv_programDuration);
     }
 
-    void bind(WorkoutHistoryItem item) {
-        this.tvProgramName.setText(item.getProgramName());
-        this.tvProgramDate.setText(item.getDate());
-        this.tvProgramDuration.setText(String.valueOf(item.getDuration()));
+    void bind(Workout item) {
+        this.tvProgramName.setText("ID: " + item.getId());
+        this.tvProgramDate.setText("Star|Stop: " + item.getStartedAt() + " - " + item.getFinishedAt());
+        this.tvProgramDuration.setText("Duration: " + item.getDuration());
     }
 }

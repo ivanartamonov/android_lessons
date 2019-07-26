@@ -1,5 +1,7 @@
 package online.yourfit.ui;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -50,10 +52,18 @@ public class MainViewModel extends ViewModel {
     }
 
     public LiveData<Workout> getOngoingWorkout() {
+        ongoingWorkout.setValue(null);
+
         Disposable disposable = this.workoutRepository.findOngoingWorkout()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(workout -> ongoingWorkout.setValue(workout),
+                .subscribe(workout -> {
+                            if (workout.getFinishedAt() == 0) {
+                                ongoingWorkout.setValue(workout);
+                            } else {
+                                ongoingWorkout.setValue(null);
+                            }
+                        },
                         throwable -> ongoingWorkout.setValue(null));
 
         this.compositeDisposable.add(disposable);

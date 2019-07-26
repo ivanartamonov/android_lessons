@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,7 @@ public class WorkoutProcessFragment extends BaseFragment implements View.OnClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.viewModel = ViewModelProviders.of(this).get(WorkoutViewModel.class);
+        this.viewModel = WorkoutViewModel.getInstance();
     }
 
     @Override

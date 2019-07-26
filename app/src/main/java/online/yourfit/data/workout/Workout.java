@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 public class Workout {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     private int id;
 

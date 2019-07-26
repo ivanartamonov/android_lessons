@@ -4,7 +4,6 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import online.yourfit.data.workout.local.WorkoutLocalRepository;
@@ -18,15 +17,11 @@ public class WorkoutRepository {
     }
 
     public Flowable<List<Workout>> getAll() {
-        return localRepository.getAll()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+        return localRepository.getAll();
     }
 
-    public Single<Workout> findOngoingWorkout() {
-        return localRepository.findOngoingWorkout()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    public Flowable<Workout> findOngoingWorkout() {
+        return localRepository.findOngoingWorkout();
     }
 
     public Completable insert(Workout workout) {

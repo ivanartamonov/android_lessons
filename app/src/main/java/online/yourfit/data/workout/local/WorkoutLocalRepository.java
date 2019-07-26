@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import online.yourfit.core.App;
@@ -27,12 +26,12 @@ public class WorkoutLocalRepository {
         return workoutDao.getAll();
     }
 
-    public Single<Workout> findOngoingWorkout() {
+    public Flowable<Workout> findOngoingWorkout() {
         return workoutDao.findOngoing();
     }
 
     public Completable insert(Workout workout) {
-        Log.d("Workout", "localInsert, started: " + workout.getFinishedAt() + " finished: " + workout.getFinishedAt());
+        Log.d("Workout", "localInsert, ID: " + workout.getId() + ", started: " + workout.getFinishedAt() + " finished: " + workout.getFinishedAt());
         return Completable.fromAction(() -> {
             Log.d("Workout", "Dao insert");
             workoutDao.insert(workout);
@@ -40,9 +39,7 @@ public class WorkoutLocalRepository {
     }
 
     public Completable deleteOngoingWorkouts() {
-        return Completable.fromAction(() -> workoutDao.deleteOngoingWorkouts())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+        return Completable.fromAction(() -> workoutDao.deleteOngoingWorkouts());
     }
 
     public Completable deleteAll() {

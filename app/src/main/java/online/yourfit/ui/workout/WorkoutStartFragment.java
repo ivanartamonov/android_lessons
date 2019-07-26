@@ -27,7 +27,7 @@ public class WorkoutStartFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.viewModel = ViewModelProviders.of(this).get(WorkoutViewModel.class);
+        this.viewModel = WorkoutViewModel.getInstance();
     }
 
     @Override

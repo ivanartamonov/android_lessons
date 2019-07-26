@@ -11,19 +11,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_ongoingWorkoutMessage"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btn_ongoingWorkoutMessage"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Workout is NOT going on..."
             android:paddingTop="16dp"
-            android:paddingBottom="16dp"/>
+            android:paddingBottom="16dp"
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            android:text="Идет тренировка"
+            style="@style/AccentButton"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/workout_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tv_ongoingWorkoutMessage">
+            android:layout_below="@id/btn_ongoingWorkoutMessage">
 
         </androidx.recyclerview.widget.RecyclerView>
 
