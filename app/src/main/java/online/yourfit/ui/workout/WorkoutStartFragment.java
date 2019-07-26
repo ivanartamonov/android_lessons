@@ -56,7 +56,7 @@ public class WorkoutStartFragment extends BaseFragment implements View.OnClickLi
             case R.id.btn_start_workout:
                 this.startWorkout();
                 NavController controller = NavHostFragment.findNavController(this);
-                controller.navigate(R.id.workoutProcessFragment);
+                controller.navigate(R.id.action_workoutNewFragment_to_workoutProcessFragment);
                 break;
         }
     }

@@ -95,7 +95,9 @@
         tools:layout="@layout/fragment_workout_new" >
         <action
             android:id="@+id/action_workoutNewFragment_to_workoutProcessFragment"
-            app:destination="@id/workoutProcessFragment" />
+            app:destination="@id/workoutProcessFragment"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/workoutProcessFragment"

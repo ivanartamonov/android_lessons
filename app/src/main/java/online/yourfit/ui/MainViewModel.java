@@ -1,12 +1,8 @@
 package online.yourfit.ui;
 
-import android.app.Application;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -17,7 +13,9 @@ import online.yourfit.data.user.UserRepository;
 import online.yourfit.data.workout.Workout;
 import online.yourfit.data.workout.WorkoutRepository;
 
-public class MainViewModel extends AndroidViewModel {
+public class MainViewModel extends ViewModel {
+
+    private static MainViewModel instance;
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private UserRepository userRepository;
@@ -26,10 +24,16 @@ public class MainViewModel extends AndroidViewModel {
     private MutableLiveData<User> user = new MutableLiveData<>();
     private MutableLiveData<Workout> ongoingWorkout = new MutableLiveData<>();
 
-    public MainViewModel(@NonNull Application application) {
-        super(application);
+    public MainViewModel() {
         this.userRepository = new UserRepository();
         this.workoutRepository = new WorkoutRepository();
+    }
+
+    public static MainViewModel getInstance() {
+        if (instance == null) {
+            instance = new MainViewModel();
+        }
+        return instance;
     }
 
     public LiveData<User> getUser() {

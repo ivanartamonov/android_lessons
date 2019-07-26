@@ -10,7 +10,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new MainViewModel(this.getApplication());
+        viewModel = MainViewModel.getInstance();
         setContentView(R.layout.main_activity);
 
         this.processIntent(getIntent());
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         String navigateArg = intent.getStringExtra("navigateTo");
         if (navigateArg != null && navigateArg.equals("workout")) {
             navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-            navController.navigate(R.id.workoutNewFragment);
+            navController.navigate(R.id.workoutProcessFragment);
         }
     }
 

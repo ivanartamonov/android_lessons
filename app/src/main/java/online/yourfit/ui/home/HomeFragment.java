@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -31,11 +32,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Work
     private View root;
     private RecyclerView recyclerView;
     private TextView tvOngoingWorkoutMessage;
+    private FloatingActionButton fab;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_home, container, false);
         this.homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        this.mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        this.mainViewModel = MainViewModel.getInstance();
         this.initViews();
         this.startObserving();
 
@@ -46,7 +48,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Work
 
     private void initViews() {
         recyclerView = root.findViewById(R.id.workout_recycler);
-        FloatingActionButton fab = root.findViewById(R.id.fab_add_workout);
+        fab = root.findViewById(R.id.fab_add_workout);
         fab.setOnClickListener(this);
         tvOngoingWorkoutMessage = root.findViewById(R.id.tv_ongoingWorkoutMessage);
     }
@@ -58,9 +60,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Work
             if (workout != null) {
                 Log.d("Workout", "Тренировка идет! ID: " + workout.getId());
                 tvOngoingWorkoutMessage.setText("Тренировка идет! ID: " + workout.getId());
+                fab.hide();
+                tvOngoingWorkoutMessage.setVisibility(View.VISIBLE);
             } else {
                 Log.d("Workout", "Ничего не происходит...");
                 tvOngoingWorkoutMessage.setText("Ничего не происходит...");
+                fab.show();
+                tvOngoingWorkoutMessage.setVisibility(View.GONE);
             }
 
             Log.d("Workout", "ongoing changed END");
