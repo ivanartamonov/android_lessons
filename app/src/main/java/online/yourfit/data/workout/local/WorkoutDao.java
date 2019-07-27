@@ -1,6 +1,7 @@
 package online.yourfit.data.workout.local;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -30,4 +31,7 @@ public interface WorkoutDao {
 
     @Query("DELETE FROM workout")
     void deleteAll();
+
+    @Delete
+    void delete(Workout workout);
 }

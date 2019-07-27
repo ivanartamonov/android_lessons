@@ -75,6 +75,20 @@ public class HomeViewModel extends ViewModel {
         return workout;
     }
 
+    public LiveData<Boolean> deleteWorkout(Workout workout) {
+        MutableLiveData<Boolean> isDeleted = new MutableLiveData<>();
+        isDeleted.setValue(false);
+
+        Disposable disposable = workoutRepository.delete(workout)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> isDeleted.setValue(true));
+
+        compositeDisposable.add(disposable);
+
+        return isDeleted;
+    }
+
     @Override
     protected void onCleared() {
         compositeDisposable.clear();

@@ -41,4 +41,8 @@ public class WorkoutRepository {
     public Completable deleteAll() {
         return localRepository.deleteAll();
     }
+
+    public Completable delete(Workout workout) {
+        return localRepository.delete(workout);
+    }
 }
