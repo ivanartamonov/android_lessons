@@ -13,6 +13,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import online.yourfit.data.blogs.BlogPost;
+import online.yourfit.data.blogs.BlogRepository;
 import online.yourfit.data.user.User;
 import online.yourfit.data.user.UserRepository;
 import online.yourfit.data.workout.Workout;
@@ -26,12 +28,14 @@ public class HomeViewModel extends ViewModel {
 
     private UserRepository userRepository;
     private WorkoutRepository workoutRepository;
+    private BlogRepository blogRepository;
 
     private MutableLiveData<List<Workout>> lastWorkouts = new MutableLiveData<>();
 
     public HomeViewModel() {
         this.userRepository = new UserRepository();
         this.workoutRepository = new WorkoutRepository();
+        this.blogRepository = new BlogRepository();
     }
 
     public static HomeViewModel getInstance() {
@@ -87,6 +91,19 @@ public class HomeViewModel extends ViewModel {
         compositeDisposable.add(disposable);
 
         return isDeleted;
+    }
+
+    public LiveData<List<BlogPost>> getBlogPosts() {
+        MutableLiveData<List<BlogPost>> blogPosts = new MutableLiveData<>();
+
+        Disposable disposable = blogRepository.getAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(list -> blogPosts.setValue(list));
+
+        compositeDisposable.add(disposable);
+
+        return blogPosts;
     }
 
     @Override

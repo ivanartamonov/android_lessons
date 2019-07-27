@@ -3,6 +3,7 @@ package online.yourfit.di;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import online.yourfit.data.blogs.remote.BlogRemoteRepository;
 import online.yourfit.data.exercises.local.ExerciseLocalRepository;
 import online.yourfit.data.exercises.remote.ExerciseRemoteRepository;
 import online.yourfit.data.programs.local.ProgramLocalRepository;
@@ -21,4 +22,6 @@ public interface AppComponent {
     void inject(ProgramLocalRepository programLocalRepository);
 
     void inject(WorkoutLocalRepository workoutLocalRepository);
+
+    void inject(BlogRemoteRepository blogRemoteRepository);
 }

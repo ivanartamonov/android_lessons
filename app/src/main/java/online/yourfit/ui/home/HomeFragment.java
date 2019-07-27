@@ -1,6 +1,7 @@
 package online.yourfit.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import online.yourfit.R;
+import online.yourfit.data.blogs.BlogPost;
 import online.yourfit.data.workout.Workout;
 import online.yourfit.ui.MainViewModel;
 
@@ -75,6 +77,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Work
 
         homeViewModel.getLastWorkouts().observe(this, workouts -> {
             workoutHistoryAdapter.setItems(workouts);
+        });
+
+        homeViewModel.getBlogPosts().observe(this, blogPosts -> {
+            for (BlogPost post: blogPosts) {
+                Log.d("blogs", post.getTitle());
+            }
         });
     }
 

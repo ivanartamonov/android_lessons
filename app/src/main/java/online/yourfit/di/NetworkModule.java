@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import online.yourfit.data.blogs.remote.BlogApi;
 import online.yourfit.data.exercises.remote.ExercisesApi;
 import online.yourfit.data.user.remote.UserApi;
 import retrofit2.Retrofit;
@@ -49,4 +50,9 @@ public class NetworkModule {
         return retrofit.create(ExercisesApi.class);
     }
 
+    @Provides
+    @Singleton
+    public BlogApi blogsApi(Retrofit retrofit) {
+        return retrofit.create(BlogApi.class);
+    }
 }
