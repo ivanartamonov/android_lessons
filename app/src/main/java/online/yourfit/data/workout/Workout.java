@@ -5,6 +5,8 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -30,6 +32,12 @@ public class Workout {
 
     @SerializedName("tonnage")
     private int tonnage;
+
+    public String getWorkoutDate() {
+        Timestamp timestamp = new Timestamp(this.startedAt);
+        Date date = new Date(timestamp.getTime());
+        return new SimpleDateFormat("dd MMM, HH:mm:ss").format(date);
+    }
 
     public int getId() {
         return id;

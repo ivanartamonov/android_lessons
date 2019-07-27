@@ -24,7 +24,7 @@ class WorkoutHistoryViewHolder extends RecyclerView.ViewHolder {
 
     void bind(Workout item) {
         this.tvProgramName.setText("ID: " + item.getId());
-        this.tvProgramDate.setText("Star|Stop: " + item.getStartedAt() + " - " + item.getFinishedAt());
-        this.tvProgramDuration.setText("Duration: " + item.getDuration());
+        this.tvProgramDate.setText(item.getWorkoutDate());
+        this.tvProgramDuration.setText("Время: " + item.getDuration() + " сек.");
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="online.yourfit.ui.home.HomeFragment"
-    android:background="@color/colorWhite">
+    android:background="@color/colorLightGrey">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -22,13 +22,33 @@
             android:text="Идет тренировка"
             style="@style/AccentButton"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/workout_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/btn_ongoingWorkoutMessage">
+        <TextView
+            android:id="@+id/tv_last_workouts_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="8dp"
+            android:text="Последние тренировки"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_below="@id/btn_ongoingWorkoutMessage" />
 
-        </androidx.recyclerview.widget.RecyclerView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/tv_last_workouts_heading">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/workout_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/btn_ongoingWorkoutMessage">
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 

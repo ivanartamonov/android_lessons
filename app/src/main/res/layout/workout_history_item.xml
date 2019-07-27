@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:padding="16dp"
     >
 
     <TextView
         android:id="@+id/tv_programDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-
+        android:text="tv_programDate"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_programName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_toEndOf="@id/tv_programDate"
+        android:layout_alignParentEnd="true"
+        android:gravity="right"
+        android:text="tv_programName"
         />
 
     <TextView
         android:id="@+id/tv_programDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_below="@id/tv_programDate"
+        android:paddingTop="8dp"
+        android:text="tv_programDuration"
         />
 
 
-</LinearLayout>
+</RelativeLayout>
