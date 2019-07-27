@@ -102,6 +102,10 @@
     <fragment
         android:id="@+id/workoutProcessFragment"
         android:name="online.yourfit.ui.workout.WorkoutProcessFragment"
-        android:label="fragment_workout_process"
-        tools:layout="@layout/fragment_workout_process" />
+        android:label="Идёт тренировка"
+        tools:layout="@layout/fragment_workout_process" >
+        <action
+            android:id="@+id/action_workoutProcessFragment_to_nav_exercises"
+            app:destination="@id/nav_exercises" />
+    </fragment>
 </navigation>

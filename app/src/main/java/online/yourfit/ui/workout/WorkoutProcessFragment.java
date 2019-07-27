@@ -4,7 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,41 +20,58 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import online.yourfit.R;
 import online.yourfit.services.workout.WorkoutService;
 import online.yourfit.ui.BaseFragment;
+import online.yourfit.ui.exercises.ExercisesAdapter;
+import online.yourfit.ui.exercises.ExercisesFragment;
 
-public class WorkoutProcessFragment extends BaseFragment implements View.OnClickListener {
+public class WorkoutProcessFragment extends BaseFragment implements View.OnClickListener,
+        ExercisesAdapter.ExercisesAdapterListener {
 
     private WorkoutViewModel viewModel;
+    private ExercisesAdapter adapter;
 
     private View root;
     private Button btnStopWorkout;
+    private FloatingActionButton fabAddExercise;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         this.viewModel = WorkoutViewModel.getInstance();
+        this.activity = (AppCompatActivity) getActivity();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_workout_process, container, false);
-        return root;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        this.setActionBarTitle("Идёт тренировка");
         this.initViews();
+        this.startObserving();
+        return root;
     }
 
     private void initViews() {
         this.btnStopWorkout = root.findViewById(R.id.btn_stop_workout);
         btnStopWorkout.setOnClickListener(this);
+
+        this.fabAddExercise = root.findViewById(R.id.fab_add_exercise);
+        fabAddExercise.setOnClickListener(this);
+
+        RecyclerView recyclerView = root.findViewById(R.id.workout_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new ExercisesAdapter(this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void startObserving() {
+        viewModel.getDoingExercises().observe(this, doingExercises -> {
+            adapter.setItems(doingExercises);
+        });
     }
 
     @Override
@@ -56,6 +79,9 @@ public class WorkoutProcessFragment extends BaseFragment implements View.OnClick
         switch (v.getId()) {
             case R.id.btn_stop_workout:
                 this.stopWorkout();
+                break;
+            case R.id.fab_add_exercise:
+                this.navigateToExercisesCatalog();
                 break;
         }
     }
@@ -81,5 +107,17 @@ public class WorkoutProcessFragment extends BaseFragment implements View.OnClick
         Intent intent = new Intent(this.activity, WorkoutService.class);
         intent.setAction(WorkoutService.ACTION_STOP);
         this.activity.stopService(intent);
+    }
+
+    private void navigateToExercisesCatalog() {
+        NavController controller = NavHostFragment.findNavController(this);
+        Bundle args = new Bundle();
+        args.putInt(ExercisesFragment.ACTION_ARG, ExercisesFragment.ACTION_CHOOSE_EXERCISE);
+        controller.navigate(R.id.nav_exercises, args);
+    }
+
+    @Override
+    public void onExerciseSelected(int id) {
+        Toast.makeText(getActivity(), "Do exercise: " + id, Toast.LENGTH_SHORT).show();
     }
 }

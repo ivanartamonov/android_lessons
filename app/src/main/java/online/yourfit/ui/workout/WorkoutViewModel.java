@@ -2,15 +2,20 @@ package online.yourfit.ui.workout;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import online.yourfit.data.exercises.Exercise;
+import online.yourfit.data.exercises.ExerciseRepository;
 import online.yourfit.data.workout.Workout;
 import online.yourfit.data.workout.WorkoutRepository;
 
@@ -20,18 +25,19 @@ public class WorkoutViewModel extends ViewModel {
 
     public static final int STATUS_NEW = 1;
     public static final int STATUS_IN_PROGRESS = 2;
-    public static final int STATUS_PAUSED = 3;
-    public static final int STATUS_FINISHED = 4;
+    public static final int STATUS_FINISHED = 3;
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private WorkoutRepository workoutRepository;
+    private ExerciseRepository exerciseRepository;
     private Workout ongoingWorkout;
 
-    private MutableLiveData<String> appBarTitle = new MutableLiveData<>();
     private MutableLiveData<Integer> status = new MutableLiveData<>();
+    private MutableLiveData<List<Exercise>> doingExercises = new MutableLiveData<>();
 
     private WorkoutViewModel() {
         this.workoutRepository = new WorkoutRepository();
+        this.exerciseRepository = new ExerciseRepository();
         this.status.setValue(STATUS_NEW);
     }
 
@@ -42,8 +48,7 @@ public class WorkoutViewModel extends ViewModel {
         return instance;
     }
 
-    void startWorkout() {
-        this.appBarTitle.setValue("Идет тренировка");
+    public void startWorkout() {
         this.status.setValue(STATUS_IN_PROGRESS);
 
         ongoingWorkout = new Workout();
@@ -59,8 +64,7 @@ public class WorkoutViewModel extends ViewModel {
         compositeDisposable.add(disposable);
     }
 
-    void stopWorkout() {
-        this.appBarTitle.setValue("Тренировка завершена");
+    public void stopWorkout() {
         this.status.setValue(STATUS_FINISHED);
 
         if (ongoingWorkout != null) {
@@ -79,6 +83,23 @@ public class WorkoutViewModel extends ViewModel {
                     );
             compositeDisposable.add(disposable);
         }
+    }
+
+    public LiveData<List<Exercise>> getDoingExercises() {
+        if (this.doingExercises.getValue() == null) {
+            this.doingExercises.setValue(new ArrayList<>());
+        }
+        return this.doingExercises;
+    }
+
+    public void addDoingExerciseById(int id) {
+        Disposable disposable = exerciseRepository.findById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(exercise -> {
+                    getDoingExercises().getValue().add(exercise);
+                });
+        compositeDisposable.add(disposable);
     }
 
     @Override

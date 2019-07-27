@@ -24,14 +24,14 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exer
     private ExercisesAdapterListener listener;
 
     public interface ExercisesAdapterListener {
-        void navigateToExerciseDetails(int id);
+        void onExerciseSelected(int id);
     }
 
-    ExercisesAdapter(ExercisesAdapterListener listener) {
+    public ExercisesAdapter(ExercisesAdapterListener listener) {
         this.listener = listener;
     }
 
-    void setItems(List<Exercise> exercises) {
+    public void setItems(List<Exercise> exercises) {
         this.items = exercises;
         notifyDataSetChanged();
     }
@@ -54,7 +54,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exer
             if (listener == null) {
                 throw new RuntimeException("Listener must be initialized");
             }
-            listener.navigateToExerciseDetails(id);
+            listener.onExerciseSelected(id);
         });
     }
 
