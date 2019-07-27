@@ -110,10 +110,19 @@
         <action
             android:id="@+id/action_workoutProcessFragment_to_workoutExercise"
             app:destination="@id/workoutExercise" />
+        <action
+            android:id="@+id/action_workoutProcessFragment_to_workoutResultsFragment"
+            app:destination="@id/workoutResultsFragment"
+            app:popUpTo="@+id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/workoutExercise"
         android:name="online.yourfit.ui.workout.WorkoutExerciseFragment"
         android:label="fragment_workout_exercise"
         tools:layout="@layout/fragment_workout_exercise" />
+    <fragment
+        android:id="@+id/workoutResultsFragment"
+        android:name="online.yourfit.ui.workout_results.WorkoutResultsFragment"
+        android:label="Результаты тренировки"
+        tools:layout="@layout/fragment_workout_results" />
 </navigation>

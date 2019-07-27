@@ -84,7 +84,7 @@ public class WorkoutViewModel extends ViewModel {
             compositeDisposable.add(disposable);
         }
 
-        this.doingExercises = null;
+        this.doingExercises = new MutableLiveData<>();
     }
 
     public LiveData<List<Exercise>> getDoingExercises() {

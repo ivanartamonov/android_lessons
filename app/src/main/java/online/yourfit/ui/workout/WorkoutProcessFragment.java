@@ -104,9 +104,15 @@ public class WorkoutProcessFragment extends BaseFragment implements View.OnClick
 
     private void stopWorkout() {
         this.viewModel.stopWorkout();
+
         Intent intent = new Intent(this.activity, WorkoutService.class);
         intent.setAction(WorkoutService.ACTION_STOP);
         this.activity.stopService(intent);
+
+        NavController controller = NavHostFragment.findNavController(this);
+        controller.navigate(R.id.action_workoutProcessFragment_to_workoutResultsFragment);
+
+        Toast.makeText(getActivity(), "Тренировка завершена!", Toast.LENGTH_LONG).show();
     }
 
     private void navigateToExercisesCatalog() {
