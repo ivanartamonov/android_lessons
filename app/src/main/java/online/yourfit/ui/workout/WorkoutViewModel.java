@@ -83,6 +83,8 @@ public class WorkoutViewModel extends ViewModel {
                     );
             compositeDisposable.add(disposable);
         }
+
+        this.doingExercises = null;
     }
 
     public LiveData<List<Exercise>> getDoingExercises() {
@@ -100,6 +102,30 @@ public class WorkoutViewModel extends ViewModel {
                     getDoingExercises().getValue().add(exercise);
                 });
         compositeDisposable.add(disposable);
+    }
+
+    public Exercise getExerciseById(int id) {
+        List<Exercise> list = this.getDoingExercises().getValue();
+        if (list != null) {
+            for (Exercise exercise : list) {
+                if (exercise.getId() == id) {
+                    return exercise;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void deleteDoingExerciseById(int id) {
+        List<Exercise> list = this.getDoingExercises().getValue();
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getId() == id) {
+                    list.remove(i);
+                    return;
+                }
+            }
+        }
     }
 
     @Override

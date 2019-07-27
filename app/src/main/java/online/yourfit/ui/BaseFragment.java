@@ -19,7 +19,7 @@ public class BaseFragment extends Fragment {
     }
 
     protected void setActionBarTitle(String title) {
-        this.actionBar = this.activity.getSupportActionBar();
+        actionBar = this.activity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(title);
         }

@@ -107,5 +107,13 @@
         <action
             android:id="@+id/action_workoutProcessFragment_to_nav_exercises"
             app:destination="@id/nav_exercises" />
+        <action
+            android:id="@+id/action_workoutProcessFragment_to_workoutExercise"
+            app:destination="@id/workoutExercise" />
     </fragment>
+    <fragment
+        android:id="@+id/workoutExercise"
+        android:name="online.yourfit.ui.workout.WorkoutExerciseFragment"
+        android:label="fragment_workout_exercise"
+        tools:layout="@layout/fragment_workout_exercise" />
 </navigation>

@@ -3,22 +3,15 @@ package online.yourfit.ui.exercises;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import online.yourfit.R;
 import online.yourfit.ui.BaseFragment;
@@ -80,14 +73,15 @@ public class ExercisesFragment extends BaseFragment implements ExercisesAdapter.
 
     @Override
     public void onExerciseSelected(int id) {
+        NavController controller = NavHostFragment.findNavController(this);
+
         if (currentAction == ACTION_CHOOSE_EXERCISE) {
             WorkoutViewModel workoutViewModel = WorkoutViewModel.getInstance();
             workoutViewModel.addDoingExerciseById(id);
-            Toast.makeText(getActivity(), "Add " + id, Toast.LENGTH_SHORT).show();
+            controller.popBackStack();
             return;
         }
 
-        NavController controller = NavHostFragment.findNavController(this);
         Bundle args = new Bundle();
         args.putInt("exerciseId", id);
         controller.navigate(R.id.nav_exercise_detail, args);

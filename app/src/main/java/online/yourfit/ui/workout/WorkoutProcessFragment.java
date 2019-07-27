@@ -118,6 +118,9 @@ public class WorkoutProcessFragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onExerciseSelected(int id) {
-        Toast.makeText(getActivity(), "Do exercise: " + id, Toast.LENGTH_SHORT).show();
+        NavController controller = NavHostFragment.findNavController(this);
+        Bundle args = new Bundle();
+        args.putInt(WorkoutExerciseFragment.ARG_EXERCISE_ID, id);
+        controller.navigate(R.id.workoutExercise, args);
     }
 }
