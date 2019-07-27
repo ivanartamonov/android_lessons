@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import online.yourfit.R;
-import online.yourfit.data.workout_history.WorkoutHistoryManager;
+import online.yourfit.data.workout.Workout;
 import online.yourfit.ui.MainViewModel;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Work
         NavController controller = NavHostFragment.findNavController(this);
 
         Bundle args = new Bundle();
-        args.putInt(WorkoutHistoryManager.ARG_WORKOUT_ID, id);
+        args.putInt(Workout.ARG_WORKOUT_ID, id);
 
         controller.navigate(R.id.nav_workout_history_detail, args);
     }

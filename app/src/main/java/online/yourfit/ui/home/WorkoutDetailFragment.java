@@ -1,6 +1,7 @@
 package online.yourfit.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +12,29 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import online.yourfit.R;
-import online.yourfit.data.workout_history.WorkoutHistoryManager;
-import online.yourfit.data.workout_history.WorkoutHistoryItem;
+import online.yourfit.data.workout.Workout;
 
 public class WorkoutDetailFragment extends Fragment {
 
-    public static WorkoutDetailFragment newInstance(int i) {
-        Bundle args = new Bundle();
-        args.putInt(WorkoutHistoryManager.ARG_WORKOUT_ID, i);
-        WorkoutDetailFragment fragment = new WorkoutDetailFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    private HomeViewModel viewModel;
+    private int workoutId;
     private TextView tvWorkoutDate;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle == null) {
+            throw new RuntimeException("Invalid ID");
+        }
+
+        workoutId = bundle.getInt(Workout.ARG_WORKOUT_ID, -1);
+        if (workoutId < 0) {
+            throw new RuntimeException("Invalid ID");
+        }
+
+        viewModel = HomeViewModel.getInstance();
+    }
 
     @Nullable
     @Override
@@ -34,24 +44,25 @@ public class WorkoutDetailFragment extends Fragment {
         return v;
     }
 
+    private void startObserving() {
+        Log.d("Workout", "Start observing");
+        viewModel.getWorkoutById(workoutId).observe(this, workout -> {
+            Log.d("Workout", "FOUND: " + workout.getId());
+            fillViews(workout);
+        });
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        int i = getArguments().getInt(WorkoutHistoryManager.ARG_WORKOUT_ID, -1);
-        if (i < 0) {
-            throw new RuntimeException("wrong card id");
-        }
-
-        WorkoutHistoryItem item = WorkoutHistoryManager.getList().get(i);
-        fillViews(item);
+        startObserving();
     }
 
     private void initViews(View v){
         tvWorkoutDate = v.findViewById(R.id.tv_workout_detail_date);
     }
 
-    private void fillViews(WorkoutHistoryItem historyItem){
-        tvWorkoutDate.setText(historyItem.getDate());
+    private void fillViews(Workout workout){
+        tvWorkoutDate.setText("Finished: " + workout.getFinishedAt());
     }
 }

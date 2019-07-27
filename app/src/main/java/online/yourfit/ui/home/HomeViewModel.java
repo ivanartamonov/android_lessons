@@ -1,5 +1,7 @@
 package online.yourfit.ui.home;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.MutableLiveData;
@@ -47,13 +49,30 @@ public class HomeViewModel extends ViewModel {
         Disposable disposable = workoutRepository.getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(workouts -> {
-                    this.lastWorkouts.setValue(workouts);
-                });
+                .subscribe(workouts -> this.lastWorkouts.setValue(workouts));
 
         compositeDisposable.add(disposable);
 
         return this.lastWorkouts;
+    }
+
+    public LiveData<Workout> getWorkoutById(int id) {
+        MutableLiveData<Workout> workout = new MutableLiveData<>();
+
+        Log.d("Workout", "getWorkoutById: " + id);
+
+        Disposable disposable = workoutRepository.findById(id)
+                .map(w -> {
+                    Log.d("Workout", "map: " + w.getId());
+                    return w;
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(w -> workout.setValue(w));
+
+        compositeDisposable.add(disposable);
+
+        return workout;
     }
 
     @Override

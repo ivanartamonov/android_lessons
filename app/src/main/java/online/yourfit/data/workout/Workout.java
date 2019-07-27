@@ -10,6 +10,8 @@ import java.util.Date;
 @Entity
 public class Workout {
 
+    public static final String ARG_WORKOUT_ID = "workoutId";
+
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     private int id;

@@ -30,6 +30,10 @@ public class WorkoutLocalRepository {
         return workoutDao.findOngoing();
     }
 
+    public Flowable<Workout> findById(int id) {
+        return workoutDao.findById(id);
+    }
+
     public Completable insert(Workout workout) {
         Log.d("Workout", "localInsert, ID: " + workout.getId() + ", started: " + workout.getFinishedAt() + " finished: " + workout.getFinishedAt());
         return Completable.fromAction(() -> {

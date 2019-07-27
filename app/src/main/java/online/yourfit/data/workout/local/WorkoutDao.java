@@ -13,6 +13,9 @@ import online.yourfit.data.workout.Workout;
 @Dao
 public interface WorkoutDao {
 
+    @Query("SELECT * FROM workout WHERE id = :id")
+    Flowable<Workout> findById(int id);
+
     @Query("SELECT * FROM workout ORDER BY id DESC")
     Flowable<List<Workout>> getAll();
 

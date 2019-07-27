@@ -16,6 +16,10 @@ public class WorkoutRepository {
         localRepository = new WorkoutLocalRepository();
     }
 
+    public Flowable<Workout> findById(int id) {
+        return localRepository.findById(id);
+    }
+
     public Flowable<List<Workout>> getAll() {
         return localRepository.getAll();
     }

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import online.yourfit.R;
 import online.yourfit.data.workout.Workout;
-import online.yourfit.data.workout_history.WorkoutHistoryItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +44,9 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryVi
 
     @Override
     public void onBindViewHolder(@NonNull WorkoutHistoryViewHolder holder, int position) {
-        holder.bind(this.items.get(position));
-        final int id = position;
+        Workout selectedWorkout = this.items.get(position);
+        holder.bind(selectedWorkout);
+        final int id = selectedWorkout.getId();
         holder.itemView.setOnClickListener(v -> {
             Log.d("ADAPTER", "Open Fragment #" + id);
             if (listener == null) {
