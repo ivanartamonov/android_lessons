@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import online.yourfit.core.App;
 import online.yourfit.data.workout.Workout;
 
@@ -22,6 +23,10 @@ public class WorkoutLocalRepository {
         return workoutDao.getAll();
     }
 
+    public Flowable<List<Workout>> getFinished(int limit) {
+        return workoutDao.getFinished(limit);
+    }
+
     public Flowable<Workout> findOngoingWorkout() {
         return workoutDao.findOngoing();
     }
@@ -30,8 +35,8 @@ public class WorkoutLocalRepository {
         return workoutDao.findById(id);
     }
 
-    public Completable insert(Workout workout) {
-        return Completable.fromAction(() -> workoutDao.insert(workout));
+    public Single<Integer> insert(Workout workout) {
+        return Single.fromCallable(() -> workoutDao.insert(workout).intValue());
     }
 
     public Completable deleteOngoingWorkouts() {

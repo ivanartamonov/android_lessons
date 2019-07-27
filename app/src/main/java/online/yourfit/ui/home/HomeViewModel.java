@@ -46,7 +46,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public LiveData<List<Workout>> getLastWorkouts() {
-        Disposable disposable = workoutRepository.getAll()
+        Disposable disposable = workoutRepository.getFinished(20)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(workouts -> this.lastWorkouts.setValue(workouts));

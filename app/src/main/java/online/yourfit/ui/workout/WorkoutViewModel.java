@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.Date;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import online.yourfit.data.workout.Workout;
 import online.yourfit.data.workout.WorkoutRepository;
 
@@ -23,6 +25,7 @@ public class WorkoutViewModel extends ViewModel {
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private WorkoutRepository workoutRepository;
+    private Workout ongoingWorkout;
 
     private MutableLiveData<String> appBarTitle = new MutableLiveData<>();
     private MutableLiveData<Integer> status = new MutableLiveData<>();
@@ -43,13 +46,13 @@ public class WorkoutViewModel extends ViewModel {
         this.appBarTitle.setValue("Идет тренировка");
         this.status.setValue(STATUS_IN_PROGRESS);
 
-        Workout ongoingWorkout = new Workout();
+        ongoingWorkout = new Workout();
         Date startedAt = new Date();
         ongoingWorkout.setStartedAt(startedAt.getTime());
 
         Disposable disposable = this.workoutRepository.insert(ongoingWorkout)
             .subscribe(
-                () -> Log.d("Workout", "onComplete"),
+                id -> ongoingWorkout.setId(id),
                 throwable -> Log.d("Workout", "onError: " + throwable.getMessage())
             );
 
@@ -60,14 +63,22 @@ public class WorkoutViewModel extends ViewModel {
         this.appBarTitle.setValue("Тренировка завершена");
         this.status.setValue(STATUS_FINISHED);
 
-        Disposable disposable = this.workoutRepository.findOngoingWorkout()
-            .subscribe(workout -> {
-                    workout.setFinishedAt(new Date().getTime());
-                    workoutRepository.insert(workout).subscribe();
-                }, throwable -> Log.d("Workout", "onError: " + throwable.getMessage())
-            );
-
-        compositeDisposable.add(disposable);
+        if (ongoingWorkout != null) {
+            ongoingWorkout.setFinishedAt(new Date().getTime());
+            workoutRepository.insert(ongoingWorkout).subscribe();
+        } else {
+            Disposable disposable = this.workoutRepository.findOngoingWorkout()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            workout -> {
+                                workout.setFinishedAt(new Date().getTime());
+                                workoutRepository.insert(workout).subscribe();
+                            },
+                            throwable -> Log.d("Workout", "onError: " + throwable.getMessage())
+                    );
+            compositeDisposable.add(disposable);
+        }
     }
 
     @Override

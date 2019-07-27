@@ -20,11 +20,14 @@ public interface WorkoutDao {
     @Query("SELECT * FROM workout ORDER BY id DESC")
     Flowable<List<Workout>> getAll();
 
+    @Query("SELECT * FROM workout WHERE finishedAt > 0 ORDER BY id DESC LIMIT :limit")
+    Flowable<List<Workout>> getFinished(int limit);
+
     @Query("SELECT * FROM workout WHERE finishedAt = 0")
     Flowable<Workout> findOngoing();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Workout workout);
+    Long insert(Workout workout);
 
     @Query("DELETE FROM workout WHERE finishedAt = 0")
     void deleteOngoingWorkouts();
