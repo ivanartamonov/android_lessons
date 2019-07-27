@@ -6,9 +6,13 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import online.yourfit.R;
 import online.yourfit.services.workout.WorkoutService;
@@ -24,6 +28,7 @@ public class WorkoutProcessFragment extends BaseFragment implements View.OnClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         this.viewModel = WorkoutViewModel.getInstance();
     }
 
@@ -53,6 +58,22 @@ public class WorkoutProcessFragment extends BaseFragment implements View.OnClick
                 this.stopWorkout();
                 break;
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.workout_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_finish_workout:
+                stopWorkout();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void stopWorkout() {
