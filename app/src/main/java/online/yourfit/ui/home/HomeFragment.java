@@ -21,6 +21,7 @@ import online.yourfit.R;
 import online.yourfit.data.blogs.BlogPost;
 import online.yourfit.data.workout.Workout;
 import online.yourfit.ui.MainViewModel;
+import online.yourfit.ui.blogs.BlogDetailsFragment;
 import online.yourfit.ui.blogs.BlogsAdapter;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -135,6 +136,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onBlogsPostSelected(int id) {
-        Toast.makeText(getActivity(), "Blog #" + id, Toast.LENGTH_SHORT).show();
+        NavController controller = NavHostFragment.findNavController(this);
+
+        Bundle args = new Bundle();
+        args.putInt(BlogDetailsFragment.ARG_BLOG_ID, id);
+
+        controller.navigate(R.id.blogDetailsFragment, args);
     }
 }

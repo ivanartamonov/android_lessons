@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_nav_home_to_workoutNewFragment"
             app:destination="@id/workoutNewFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_blogDetailsFragment"
+            app:destination="@id/blogDetailsFragment" />
     </fragment>
 
     <fragment
@@ -125,4 +128,9 @@
         android:name="online.yourfit.ui.workout_results.WorkoutResultsFragment"
         android:label="Результаты тренировки"
         tools:layout="@layout/fragment_workout_results" />
+    <fragment
+        android:id="@+id/blogDetailsFragment"
+        android:name="online.yourfit.ui.blogs.BlogDetailsFragment"
+        android:label="fragment_blog_details"
+        tools:layout="@layout/fragment_blog_details" />
 </navigation>

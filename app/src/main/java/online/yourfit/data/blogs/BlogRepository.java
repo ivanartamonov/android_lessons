@@ -17,4 +17,8 @@ public class BlogRepository {
         return remoteRepository.getAll();
     }
 
+    public Flowable<BlogPost> getById(int id) {
+        return remoteRepository.getById(id);
+    }
+
 }

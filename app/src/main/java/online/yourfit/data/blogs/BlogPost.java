@@ -14,6 +14,8 @@ public class BlogPost {
     private String authorAvatarUrl;
     @SerializedName("intro")
     private String intro;
+    @SerializedName("text")
+    private String text;
     @SerializedName("publishedAt")
     private String publishedAt;
 
@@ -63,5 +65,13 @@ public class BlogPost {
 
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

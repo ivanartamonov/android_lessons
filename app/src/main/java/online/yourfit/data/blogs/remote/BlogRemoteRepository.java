@@ -11,13 +11,17 @@ import online.yourfit.data.blogs.BlogPost;
 public class BlogRemoteRepository {
 
     @Inject
-    BlogApi exercisesApi;
+    BlogApi blogApi;
 
     public BlogRemoteRepository() {
         App.instance.getAppComponent().inject(this);
     }
 
     public Flowable<List<BlogPost>> getAll() {
-        return exercisesApi.getBlogPosts();
+        return blogApi.getBlogPosts();
+    }
+
+    public Flowable<BlogPost> getById(int id) {
+        return blogApi.getById(id);
     }
 }
