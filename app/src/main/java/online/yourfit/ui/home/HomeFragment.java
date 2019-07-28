@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,10 +21,13 @@ import online.yourfit.R;
 import online.yourfit.data.blogs.BlogPost;
 import online.yourfit.data.workout.Workout;
 import online.yourfit.ui.MainViewModel;
+import online.yourfit.ui.blogs.BlogsAdapter;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, WorkoutHistoryAdapter.WorkoutHistoryAdapterListener {
+public class HomeFragment extends Fragment implements View.OnClickListener,
+        WorkoutHistoryAdapter.WorkoutHistoryAdapterListener,
+        BlogsAdapter.BlogsAdapterListener {
 
     private HomeViewModel homeViewModel;
     private MainViewModel mainViewModel;
@@ -31,9 +35,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Work
     // Views
     private View root;
     private RecyclerView recyclerView;
+    private RecyclerView blogsRecycler;
     private Button btnOngoingWorkoutMessage;
     private FloatingActionButton fab;
     private WorkoutHistoryAdapter workoutHistoryAdapter;
+    private BlogsAdapter blogsAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -46,21 +52,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Work
     }
 
     private void initViews() {
-        recyclerView = root.findViewById(R.id.workout_recycler);
         fab = root.findViewById(R.id.fab_add_workout);
         fab.setOnClickListener(this);
         btnOngoingWorkoutMessage = root.findViewById(R.id.btn_ongoingWorkoutMessage);
         btnOngoingWorkoutMessage.setOnClickListener(this);
 
+        // Workouts recycler
+        recyclerView = root.findViewById(R.id.workout_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
         workoutHistoryAdapter = new WorkoutHistoryAdapter(this);
         recyclerView.setAdapter(workoutHistoryAdapter);
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
+
+        // Blogs recycler
+        blogsRecycler = root.findViewById(R.id.blog_recycler);
+        LinearLayoutManager blogsLayoutManager = new LinearLayoutManager(getActivity());
+        blogsRecycler.setLayoutManager(blogsLayoutManager);
+        blogsAdapter = new BlogsAdapter(this);
+        blogsRecycler.setAdapter(blogsAdapter);
+        DividerItemDecoration blogsDividerItemDecoration = new DividerItemDecoration(blogsRecycler.getContext(),
+                layoutManager.getOrientation());
+        blogsRecycler.addItemDecoration(blogsDividerItemDecoration);
+        blogsRecycler.setNestedScrollingEnabled(false);
     }
 
     private void startObserving() {
@@ -80,6 +96,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Work
         });
 
         homeViewModel.getBlogPosts().observe(this, blogPosts -> {
+            blogsAdapter.setItems(blogPosts);
             for (BlogPost post: blogPosts) {
                 Log.d("blogs", post.getTitle());
             }
@@ -114,5 +131,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Work
         args.putInt(Workout.ARG_WORKOUT_ID, id);
 
         controller.navigate(R.id.nav_workout_history_detail, args);
+    }
+
+    @Override
+    public void onBlogsPostSelected(int id) {
+        Toast.makeText(getActivity(), "Blog #" + id, Toast.LENGTH_SHORT).show();
     }
 }
