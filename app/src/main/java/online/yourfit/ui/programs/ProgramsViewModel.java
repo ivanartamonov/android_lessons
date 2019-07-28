@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import online.yourfit.data.programs.Program;
 import online.yourfit.data.programs.local.ProgramLocalRepository;
 
@@ -26,5 +27,9 @@ class ProgramsViewModel extends AndroidViewModel {
 
     LiveData<Program> getProgramById(int id) {
         return localRepository.findById(id);
+    }
+
+    public Completable deleteById(int id) {
+        return localRepository.deleteById(id);
     }
 }

@@ -32,4 +32,7 @@ public interface ProgramDao {
 
     @Query("DELETE FROM program")
     void deleteAll();
+
+    @Query("DELETE FROM program WHERE id = :id")
+    void deleteById(int id);
 }

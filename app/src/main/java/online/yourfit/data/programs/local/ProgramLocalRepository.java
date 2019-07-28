@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import online.yourfit.core.App;
 import online.yourfit.data.programs.Program;
 
@@ -38,6 +39,10 @@ public class ProgramLocalRepository {
 
     public void deleteAll() {
         new ProgramLocalRepository.DeleteAllProgramsAsyncTask(dao).execute();
+    }
+
+    public Completable deleteById(int id) {
+        return Completable.fromAction(() -> dao.deleteById(id));
     }
 
     public LiveData<Program> findById(int id) {
